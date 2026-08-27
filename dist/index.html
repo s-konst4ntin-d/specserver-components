@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ВМЗ Server Components — каталог серверных комплектующих</title>
+    <meta
+      name="description"
+      content="B2B-каталог серверных комплектующих: трансиверы, кабели, адаптеры, оптические патч-корды и комплектующие с ценами с НДС."
+    />
+    <meta property="og:title" content="ВМЗ Server Components" />
+    <meta
+      property="og:description"
+      content="Интерактивный каталог серверных комплектующих с фильтрами, корзиной-заявкой, мини-кабинетом и импортом CSV."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/server-components-hero.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#catalog">Перейти к каталогу</a>
+
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="ВМЗ Server Components">
+        <span class="brand-mark">VMZ</span>
+        <span>
+          <strong>ВМЗ Server</strong>
+          <small>components</small>
+        </span>
+      </a>
+
+      <nav class="top-nav" aria-label="Основная навигация">
+        <a href="#catalog">Каталог</a>
+        <a href="#admin">Импорт</a>
+        <a href="#delivery">Доставка</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="ghost-button" type="button" id="accountButton">Кабинет</button>
+        <button class="ghost-button" type="button" id="favoritesButton">
+          Избранное <span class="count-pill" id="favoritesCount">0</span>
+        </button>
+        <button class="primary-button" type="button" id="cartButton">
+          Корзина <span class="count-pill strong" id="cartCount">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="heroTitle">
+        <img
+          class="hero-media"
+          src="assets/server-components-hero.png"
+          alt="Серверы, трансиверы, оптические патч-корды и сетевые адаптеры на рабочем столе"
+        />
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow">B2B/B2C каталог комплектующих с ценами с НДС</p>
+          <h1 id="heroTitle">ВМЗ Server Components</h1>
+          <p class="hero-copy">
+            Подберите кабели, адаптеры, трансиверы, оптические патч-корды и серверные
+            комплектующие без лишних шагов. Часть позиций можно добавить в корзину,
+            по остальным быстро отправить запрос КП.
+          </p>
+
+          <form class="hero-search" id="heroSearchForm" role="search">
+            <label class="visually-hidden" for="heroSearch">Поиск по каталогу</label>
+            <input
+              id="heroSearch"
+              type="search"
+              autocomplete="off"
+              placeholder="Поиск по артикулу, бренду, интерфейсу или совместимости"
+            />
+            <button class="primary-button" type="submit">Найти</button>
+          </form>
+
+          <div class="hero-actions" aria-label="Быстрые действия">
+            <a class="primary-link" href="#catalog">Открыть каталог</a>
+            <button class="secondary-button" type="button" data-lead="quote">
+              Запросить КП
+            </button>
+          </div>
+
+          <dl class="metric-strip" aria-label="Показатели сервиса">
+            <div>
+              <dt id="metricSku">0</dt>
+              <dd>демо SKU</dd>
+            </div>
+            <div>
+              <dt>НДС</dt>
+              <dd>в цене</dd>
+            </div>
+            <div>
+              <dt>CSV</dt>
+              <dd>импорт каталога</dd>
+            </div>
+            <div>
+              <dt>КП</dt>
+              <dd>заявка менеджеру</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="status-band" aria-label="Рабочие сценарии сайта">
+        <div>
+          <strong>Смешанная модель продаж</strong>
+          <span>корзина для позиций с ценой, запрос КП для сложных поставок</span>
+        </div>
+        <div>
+          <strong>Email + Telegram</strong>
+          <span>готовый сценарий уведомлений для серверной части</span>
+        </div>
+        <div>
+          <strong>Мини-кабинет</strong>
+          <span>реквизиты, избранное, история и повтор заявки</span>
+        </div>
+      </section>
+
+      <section class="catalog-section" id="catalog" aria-labelledby="catalogTitle">
+        <div class="section-heading">
+          <div>
+            <p class="breadcrumb" id="breadcrumbs">Главная / Каталог</p>
+            <h2 id="catalogTitle">Каталог серверных комплектующих</h2>
+            <p id="categorySeo">
+              Подбор комплектующих для серверной инфраструктуры: трансиверы, кабели,
+              адаптеры и оптика с техническими фильтрами.
+            </p>
+          </div>
+          <button class="secondary-button compact" type="button" id="resetCatalogButton">
+            Сбросить фильтры
+          </button>
+        </div>
+
+        <div class="category-tabs" id="categoryTabs" role="tablist" aria-label="Категории"></div>
+
+        <div class="catalog-layout">
+          <aside class="filters-panel" aria-label="Фильтры каталога">
+            <div class="filters-header">
+              <h3>Фильтры</h3>
+              <span id="activeFilterCount">0 активно</span>
+            </div>
+
+            <label class="field-label" for="catalogSearch">Быстрый поиск</label>
+            <input
+              class="input"
+              id="catalogSearch"
+              type="search"
+              autocomplete="off"
+              placeholder="SFP, LC, Cisco, 10G..."
+            />
+
+            <div class="price-filter">
+              <label>
+                <span>Цена от</span>
+                <input class="input" id="priceMin" type="number" min="0" inputmode="numeric" />
+              </label>
+              <label>
+                <span>до</span>
+                <input class="input" id="priceMax" type="number" min="0" inputmode="numeric" />
+              </label>
+            </div>
+
+            <div id="facetFilters" class="facet-groups"></div>
+          </aside>
+
+          <section class="products-panel" aria-live="polite">
+            <div class="products-toolbar">
+              <div>
+                <strong id="resultCount">0 товаров</strong>
+                <span id="selectedFilters" class="selected-filters"></span>
+              </div>
+              <div class="toolbar-controls">
+                <label for="sortSelect">Сортировка</label>
+                <select class="input select" id="sortSelect">
+                  <option value="relevance">По релевантности</option>
+                  <option value="priceAsc">Цена: сначала дешевле</option>
+                  <option value="priceDesc">Цена: сначала дороже</option>
+                  <option value="stock">Сначала в наличии</option>
+                  <option value="name">По названию</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+            <div class="empty-state hidden" id="emptyState">
+              <h3>Ничего не найдено</h3>
+              <p>Попробуйте убрать часть фильтров или отправьте заявку менеджеру.</p>
+              <button class="primary-button" type="button" data-lead="quote">Запросить подбор</button>
+            </div>
+            <div class="pagination" id="pagination" aria-label="Пагинация каталога"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="workflow-band" aria-label="Как оформляется заказ">
+        <div>
+          <span class="step-index">01</span>
+          <h3>Подбор</h3>
+          <p>Покупатель ищет по SKU, параметрам и совместимости, добавляет позиции в корзину.</p>
+        </div>
+        <div>
+          <span class="step-index">02</span>
+          <h3>Заявка</h3>
+          <p>Форма собирает контакты, компанию, ИНН, комментарий и состав корзины.</p>
+        </div>
+        <div>
+          <span class="step-index">03</span>
+          <h3>Подтверждение</h3>
+          <p>Менеджер уточняет наличие, срок поставки, цену и выставляет КП или счет.</p>
+        </div>
+      </section>
+
+      <section class="admin-section" id="admin" aria-labelledby="adminTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Администрирование</p>
+            <h2 id="adminTitle">Импорт и управление демо-каталогом</h2>
+            <p>
+              Прототип поддерживает обновление товаров из CSV прямо в браузере.
+              В production этот сценарий переносится в CMS или интеграцию.
+            </p>
+          </div>
+          <button class="secondary-button compact" type="button" id="downloadCsvButton">
+            Скачать пример CSV
+          </button>
+        </div>
+
+        <div class="admin-grid">
+          <form class="admin-tool" id="csvImportForm">
+            <h3>Импорт CSV</h3>
+            <p class="muted">
+              Поддерживаемые колонки: category, name, sku, brand, type, interface,
+              speed, length, connector, compatibility, condition, stock, price, vat,
+              status, description.
+            </p>
+            <label class="field-label" for="csvFile">Файл CSV</label>
+            <input class="input" id="csvFile" type="file" accept=".csv,text/csv" />
+            <label class="field-label" for="csvText">Или вставьте CSV</label>
+            <textarea class="input textarea" id="csvText" rows="9"></textarea>
+            <div class="button-row">
+              <button class="secondary-button" type="button" id="loadSampleCsvButton">
+                Вставить пример
+              </button>
+              <button class="secondary-button" type="button" id="previewCsvButton">
+                Предпросмотр
+              </button>
+              <button class="primary-button" type="button" id="mergeCsvButton">
+                Добавить/обновить
+              </button>
+              <button class="danger-button" type="button" id="replaceCsvButton">
+                Заменить каталог
+              </button>
+            </div>
+          </form>
+
+          <form class="admin-tool" id="quickEditForm">
+            <h3>Быстрая правка товара</h3>
+            <label class="field-label" for="adminProductSelect">Товар</label>
+            <select class="input select" id="adminProductSelect"></select>
+            <label class="field-label" for="adminPrice">Цена с НДС</label>
+            <input class="input" id="adminPrice" type="number" min="0" inputmode="numeric" />
+            <label class="field-label" for="adminStock">Наличие/статус</label>
+            <input class="input" id="adminStock" type="text" />
+            <label class="field-label" for="adminStatus">Продажный сценарий</label>
+            <select class="input select" id="adminStatus">
+              <option value="cart">Можно в корзину</option>
+              <option value="request">Цена по запросу</option>
+            </select>
+            <div class="button-row">
+              <button class="primary-button" type="submit">Сохранить</button>
+              <button class="secondary-button" type="button" id="restoreDemoButton">
+                Вернуть демо
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-preview" id="adminPreview" aria-live="polite"></div>
+      </section>
+
+      <section class="info-section" id="delivery" aria-labelledby="infoTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Сервисные страницы v1</p>
+            <h2 id="infoTitle">Доставка, оплата и гарантии</h2>
+          </div>
+        </div>
+        <div class="info-grid">
+          <article>
+            <h3>Доставка</h3>
+            <p>
+              Самовывоз, курьерская доставка и отправка транспортными компаниями.
+              Автоматический расчет доставки не входит в первую версию.
+            </p>
+          </article>
+          <article>
+            <h3>Оплата</h3>
+            <p>
+              Безналичный расчет для юридических лиц, счет после подтверждения
+              наличия и условий поставки менеджером.
+            </p>
+          </article>
+          <article>
+            <h3>Гарантии</h3>
+            <p>
+              Гарантийный срок и состояние фиксируются в карточке товара и
+              подтверждаются в КП.
+            </p>
+          </article>
+          <article>
+            <h3>SEO</h3>
+            <p>
+              В прототипе заложены ЧПУ-якоря, хлебные крошки, мета-теги, robots.txt
+              и sitemap.xml.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contacts-section" id="contacts" aria-labelledby="contactsTitle">
+        <div>
+          <p class="eyebrow">Контакты</p>
+          <h2 id="contactsTitle">Связаться с отделом продаж</h2>
+          <p>
+            Телефон: <a href="tel:+73430000000">+7 (343) 000-00-00</a><br />
+            Email: <a href="mailto:sales@example.ru">sales@example.ru</a><br />
+            Адрес: Нижний Тагил, офис и склад будут указаны после запуска.
+          </p>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <label>
+            <span>Имя</span>
+            <input class="input" name="name" required />
+          </label>
+          <label>
+            <span>Телефон или email</span>
+            <input class="input" name="contact" required />
+          </label>
+          <label>
+            <span>Сообщение</span>
+            <textarea class="input textarea" name="message" rows="4" required></textarea>
+          </label>
+          <button class="primary-button" type="submit">Отправить сообщение</button>
+        </form>
+      </section>
+    </main>
+
+    <dialog class="modal side-dialog" id="cartDialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="eyebrow">Корзина-заявка</p>
+          <h2>Оформление заказа</h2>
+        </div>
+        <button class="iconless-button" value="cancel" aria-label="Закрыть корзину">Закрыть</button>
+      </form>
+      <div class="dialog-body" id="cartBody"></div>
+    </dialog>
+
+    <dialog class="modal" id="productDialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="breadcrumb" id="productBreadcrumb">Каталог / Товар</p>
+          <h2 id="productDialogTitle">Карточка товара</h2>
+        </div>
+        <button class="iconless-button" value="cancel" aria-label="Закрыть карточку">Закрыть</button>
+      </form>
+      <div class="dialog-body" id="productDialogBody"></div>
+    </dialog>
+
+    <dialog class="modal" id="leadDialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="eyebrow" id="leadEyebrow">Заявка</p>
+          <h2 id="leadTitle">Запросить КП</h2>
+        </div>
+        <button class="iconless-button" value="cancel" aria-label="Закрыть форму">Закрыть</button>
+      </form>
+      <form class="dialog-body lead-form" id="leadForm">
+        <div id="leadProductSummary" class="lead-product"></div>
+        <label>
+          <span>Имя</span>
+          <input class="input" name="name" required />
+        </label>
+        <label>
+          <span>Телефон</span>
+          <input class="input" name="phone" required />
+        </label>
+        <label>
+          <span>Email</span>
+          <input class="input" name="email" type="email" required />
+        </label>
+        <label>
+          <span>Компания</span>
+          <input class="input" name="company" required />
+        </label>
+        <label>
+          <span>ИНН</span>
+          <input class="input" name="inn" inputmode="numeric" />
+        </label>
+        <label>
+          <span>Комментарий</span>
+          <textarea class="input textarea" name="comment" rows="4"></textarea>
+        </label>
+        <div class="form-actions">
+          <button class="primary-button" type="submit">Отправить заявку</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal side-dialog" id="accountDialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="eyebrow">Мини-кабинет</p>
+          <h2>Профиль и история</h2>
+        </div>
+        <button class="iconless-button" value="cancel" aria-label="Закрыть кабинет">Закрыть</button>
+      </form>
+      <div class="dialog-body" id="accountBody"></div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
