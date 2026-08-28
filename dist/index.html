@@ -3,29 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ВМЗ Server Components — каталог серверных комплектующих</title>
+    <title>SpecServer Components — каталог серверных комплектующих</title>
     <meta
       name="description"
       content="B2B-каталог серверных комплектующих: трансиверы, кабели, адаптеры, оптические патч-корды и комплектующие с ценами с НДС."
     />
-    <meta property="og:title" content="ВМЗ Server Components" />
+    <meta property="og:title" content="SpecServer Components" />
     <meta
       property="og:description"
       content="Интерактивный каталог серверных комплектующих с фильтрами, корзиной-заявкой, мини-кабинетом и импортом CSV."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="assets/server-components-hero.png" />
+    <meta property="og:image" content="assets/specserver-bg-01-dark-server-room.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#catalog">Перейти к каталогу</a>
 
     <header class="site-header">
-      <a class="brand" href="#home" aria-label="ВМЗ Server Components">
-        <span class="brand-mark">VMZ</span>
-        <span>
-          <strong>ВМЗ Server</strong>
-          <small>components</small>
+      <a class="brand" href="#home" aria-label="SpecServer Components">
+        <span class="brand-logo-wrap" aria-hidden="true">
+          <img src="assets/specserver-bg-01-dark-server-room.png" alt="" />
+        </span>
+        <span class="brand-text">
+          <strong>SpecServer</strong>
+          <small>Components</small>
         </span>
       </a>
 
@@ -57,7 +59,7 @@
         <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-content">
           <p class="eyebrow">B2B/B2C каталог комплектующих с ценами с НДС</p>
-          <h1 id="heroTitle">ВМЗ Server Components</h1>
+          <h1 id="heroTitle">SpecServer Components</h1>
           <p class="hero-copy">
             Подберите кабели, адаптеры, трансиверы, оптические патч-корды и серверные
             комплектующие без лишних шагов. Часть позиций можно добавить в корзину,
@@ -161,6 +163,7 @@
                 <input class="input" id="priceMax" type="number" min="0" inputmode="numeric" />
               </label>
             </div>
+            <p class="price-range-note" id="priceRangeNote">Диапазон появится после загрузки каталога.</p>
 
             <div id="facetFilters" class="facet-groups"></div>
           </aside>
@@ -195,21 +198,29 @@
       </section>
 
       <section class="workflow-band" aria-label="Как оформляется заказ">
-        <div>
+        <div class="workflow-intro">
+          <p class="eyebrow">Сценарий сделки</p>
+          <h2>Как оформляется заказ</h2>
+          <p>
+            Показываем покупателю понятный маршрут: от подбора позиции до КП и счета
+            после подтверждения менеджером.
+          </p>
+        </div>
+        <article class="workflow-step">
           <span class="step-index">01</span>
           <h3>Подбор</h3>
           <p>Покупатель ищет по SKU, параметрам и совместимости, добавляет позиции в корзину.</p>
-        </div>
-        <div>
+        </article>
+        <article class="workflow-step">
           <span class="step-index">02</span>
           <h3>Заявка</h3>
           <p>Форма собирает контакты, компанию, ИНН, комментарий и состав корзины.</p>
-        </div>
-        <div>
+        </article>
+        <article class="workflow-step">
           <span class="step-index">03</span>
           <h3>Подтверждение</h3>
           <p>Менеджер уточняет наличие, срок поставки, цену и выставляет КП или счет.</p>
-        </div>
+        </article>
       </section>
 
       <section class="admin-section" id="admin" aria-labelledby="adminTitle">
@@ -232,8 +243,8 @@
             <h3>Импорт CSV</h3>
             <p class="muted">
               Поддерживаемые колонки: category, name, sku, brand, type, interface,
-              speed, length, connector, compatibility, condition, stock, price, vat,
-              status, description.
+              speed, length, capacity, connector, compatibility, condition, stock,
+              price, vat, status, description.
             </p>
             <label class="field-label" for="csvFile">Файл CSV</label>
             <input class="input" id="csvFile" type="file" accept=".csv,text/csv" />
@@ -288,28 +299,32 @@
           </div>
         </div>
         <div class="info-grid">
-          <article>
+          <article class="service-card">
+            <span class="service-index">01</span>
             <h3>Доставка</h3>
             <p>
               Самовывоз, курьерская доставка и отправка транспортными компаниями.
               Автоматический расчет доставки не входит в первую версию.
             </p>
           </article>
-          <article>
+          <article class="service-card">
+            <span class="service-index">02</span>
             <h3>Оплата</h3>
             <p>
               Безналичный расчет для юридических лиц, счет после подтверждения
               наличия и условий поставки менеджером.
             </p>
           </article>
-          <article>
+          <article class="service-card">
+            <span class="service-index">03</span>
             <h3>Гарантии</h3>
             <p>
               Гарантийный срок и состояние фиксируются в карточке товара и
               подтверждаются в КП.
             </p>
           </article>
-          <article>
+          <article class="service-card">
+            <span class="service-index">04</span>
             <h3>SEO</h3>
             <p>
               В прототипе заложены ЧПУ-якоря, хлебные крошки, мета-теги, robots.txt

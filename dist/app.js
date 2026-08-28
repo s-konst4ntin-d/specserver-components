@@ -7,16 +7,19 @@
     favorites: "vmz.favorites.v1",
     orders: "vmz.orders.v1",
     profile: "vmz.profile.v1",
+    seedVersion: "vmz.seedVersion.v1",
   };
 
+  const CATALOG_SEED_VERSION = "2026-08-28-avito-67";
   const heroImage = "assets/server-components-hero.png";
+  const productImagePath = "assets/product-images/";
 
   const defaultProducts = [
     {
       id: "sfp-10g-sr-cisco",
       category: "Трансиверы",
       name: "Трансивер Cisco SFP-10G-SR совместимый",
-      sku: "SFP-10G-SR-VMZ",
+      sku: "SFP-10G-SR-SPEC",
       brand: "Cisco",
       type: "SFP+",
       interface: "LC Duplex",
@@ -71,7 +74,7 @@
       category: "Кабели",
       name: "DAC-кабель SFP+ 10G 3 м",
       sku: "DAC-SFP-10G-3M",
-      brand: "VMZ",
+      brand: "SpecServer",
       type: "DAC",
       interface: "SFP+",
       speed: "10G",
@@ -254,7 +257,7 @@
       category: "Кабели",
       name: "Кабель питания C13-C14 2 м",
       sku: "PWR-C13-C14-2M",
-      brand: "VMZ",
+      brand: "SpecServer",
       type: "Питание",
       interface: "IEC",
       speed: "10A",
@@ -329,32 +332,211 @@
     },
   ];
 
+  const requestedProductNames = [
+    "Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см",
+    "Б/У Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см",
+    "Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 80см",
+    "Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 70см",
+    "Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 60см",
+    "Б/У Lr-Link Slimsas SFF-8654 8i to SFF-8654 8i 100см",
+    "Б/У Lr-Link Slimsas SFF-8654 8i to SFF-8654 8i 80см",
+    "Lr-Link MCIO 8i gen5 to MCIO 8i gen5 80см",
+    "Lr-Link MCIO x8 74 Pin x SFF-8639 U.2 (molex) length:80 cm",
+    "Lr-Link Slimsas Low Profile 8i gen4 to U2 (sff-6639) 60см",
+    "LR-Link адаптер LRFNA921A GEN5",
+    "10Gtek адаптер SA22N216P GEN5",
+    "LR-Link адаптер 4 port Slimsas LRFCF931",
+    "LR-Link адаптер LRFCF921 GEN4",
+    "10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см",
+    "Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см",
+    "Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 80см",
+    "Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 70см",
+    "Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 60см",
+    "Б/У 10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 75см",
+    "10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 75см",
+    "Б/У 10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 70см",
+    "10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 70см",
+    "10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 60см",
+    "10Gtek MCIO 8i gen5 to MCIO 8i gen5 80см",
+    "10Gtek MCIO 8i gen5 to U2 (sff-6639) 80см",
+    "OEM Slimsas - Slimsas 50 см",
+    "OEM Slimsas - Low Profile 50 см",
+    "OEM MCIO - Slimsas 50 см",
+    "OEM MCIO - Slimsas 40 см",
+    "OEM MCIO - MCIO 50 см",
+    "прямой 100см",
+    "прямой 60см",
+    "прямой 40см",
+    "Lr-Link PCIe 2 ports slimsas adapter (Бифуркатор) gen4",
+    "Сетевая карта XL710-10G-4S-X8 10Gbe",
+    "Б/У Сетевая карта CX4121A 25GbE",
+    "SSD crucial mx500 250gb",
+    "SSD crucial mx500 1tb",
+    "SSD 870 EVO 250Gb",
+    "SSD samsung 980 500gb",
+    "SSD msi spatium m480pro 4tb",
+    "SSD kingston fury 4tb",
+    "HDD seagate skyhawk ai 14tb",
+    "Make It Green 10G-SR 850nm",
+    "FIBO 1.25G",
+    "Lr-Link LRXP0010-Y3ATR RJ45",
+    "FIВО FТ-S10-RJ45(30m) 1/10GВАSЕ-Т SFР+ RJ45",
+    "Lr-Link LRXP8510-X3ATL sfp+ 10G-SR 850nm 10G",
+    "Cisco XFP-10GMM-SR 10G",
+    "Lr-Link sfp28 25G-SR 850nm 25G T4",
+    "Lr-Link sfp28 25G-SR 850nm 25G T8",
+    "10Gtek sfp28 25G-SR 850nm 25G",
+    "Mikrotik qsfp 28 100G-SR4 850nm MMF 100G",
+    "Lr-Link qsfp 28 100G-SR4 850nm MMF 100G",
+    "MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 1 метр",
+    "MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 2 метра",
+    "MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 20 метров",
+    "MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 30 метров",
+    "Micro-hi (8-pin, ATX 12V)",
+    "12vhpwr 600w for 5090",
+    "YY15050M12B snowfan 4.1A",
+    "RA15051HD1 RDK Cooler 1.8A",
+    "YD12038B12VNM 2.7A",
+    "RA12038HD1 RDK Cooler 2.3A",
+    "DC BRUSHLESS QWE12038NM",
+    "YY12038L12B SnowFan 2.8A",
+  ];
+
+  const avitoProductRows = [
+    ["Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см", "LR-SLLP-100", 57, "Кабель", "Новый", 1900],
+    ["Б/У Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см", "BY-LR-SLLP-100", 115, "Кабель", "Б/У", 1200],
+    ["Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 80см", "LR-SLLP-80", 38, "Кабель", "Новый", 1900],
+    ["Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 70см", "LR-SLLP-70", 32, "Кабель", "Новый", 1900],
+    ["Lr-Link Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 60см", "LR-SLLP-60", 8, "Кабель", "Новый", 1900],
+    ["Б/У Lr-Link Slimsas SFF-8654 8i to SFF-8654 8i 100см", "BY-LR-SL-100", 115, "Кабель", "Б/У", 1200],
+    ["Б/У Lr-Link Slimsas SFF-8654 8i to SFF-8654 8i 80см", "BY-LR-SL-80", 31, "Кабель", "Б/У", 1200],
+    ["Lr-Link MCIO 8i gen5 to MCIO 8i gen5 80см", "LR-MC-80", 101, "Кабель", "Новый", 3500],
+    ["Lr-Link MCIO x8 74 Pin x SFF-8639 U.2 (molex) length:80 cm", "LR-MCU2-80", 18, "Кабель", "Новый", 3300],
+    ["Lr-Link Slimsas Low Profile 8i gen4 to U2 (sff-6639) 60см", "LR-SLU2-60", 6, "Кабель", "Новый", 2800],
+    ["LR-Link адаптер LRFNA921A GEN5", "LR-AD-MC-G5", 37, "Адаптер", "Новый", 4500],
+    ["10Gtek адаптер SA22N216P GEN5", "10GT-AD-MC-G5", 14, "Адаптер", "Новый", 4500],
+    ["LR-Link адаптер 4 port Slimsas LRFCF931", "LR-AD-4SL-G4", 8, "Адаптер", "Новый", 4500],
+    ["LR-Link адаптер LRFCF921 GEN4", "LR-AD-SL-G4", 22, "Адаптер", "Новый", 4500],
+    ["10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см", "10GT-SLLP-100", 72, "Кабель", "Новый", 1900],
+    ["Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 100см", "BY-10GT-SLLP-100", 28, "Кабель", "Б/У", 1200],
+    ["Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 80см", "BY-10GT-SLLP-80", 23, "Кабель", "Б/У", 1200],
+    ["Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 70см", "BY-10GT-SLLP-70", 8, "Кабель", "Б/У", 1200],
+    ["Б/У 10Gtek Slimsas Low Profile SFF-8654 8i to SFF-8654 8i 60см", "BY-10GT-SLLP-60", 8, "Кабель", "Б/У", 1200],
+    ["Б/У 10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 75см", "BY-10GT-SL-75", 6, "Кабель", "Б/У", 1200],
+    ["10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 75см", "10GT-SL-75", 16, "Кабель", "Новый", 1900],
+    ["Б/У 10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 70см", "BY-10GT-SL-70", 1, "Кабель", "Б/У", 1200],
+    ["10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 70см", "10GT-SL-70", 33, "Кабель", "Новый", 1900],
+    ["10Gtek Slimsas SFF-8654 8i to SFF-8654 8i 60см", "10GT-SL-60", 49, "Кабель", "Новый", 1900],
+    ["10Gtek MCIO 8i gen5 to MCIO 8i gen5 80см", "10GT-MC-80", 56, "Кабель", "Новый", 3500],
+    ["10Gtek MCIO 8i gen5 to U2 (sff-6639) 80см", "10GT-MCU2-80", 18, "Кабель", "Новый", 3300],
+    ["OEM Slimsas - Slimsas 50 см", "OEM-SL-50", 2, "Кабель", "Новый", 10],
+    ["OEM Slimsas - Low Profile 50 см", "OEM-SLLP-50", 4, "Кабель", "Новый", 10],
+    ["OEM MCIO - Slimsas 50 см", "OEM-MCSL-50", 2, "Кабель", "Новый", 10],
+    ["OEM MCIO - Slimsas 40 см", "OEM-MCSL-40", 4, "Кабель", "Новый", 10],
+    ["OEM MCIO - MCIO 50 см", "OEM-MC-50", 37, "Кабель", "Новый", 10],
+    ["прямой 100см", "RZ-100", 12, "Райзер ГПУ", "Новый", 10000],
+    ["прямой 60см", "RZ-60", 12, "Райзер ГПУ", "Новый", 5000],
+    ["прямой 40см", "RZ-40", 12, "Райзер ГПУ", "Новый", 4000],
+    ["Lr-Link PCIe 2 ports slimsas adapter (Бифуркатор) gen4", "BIF-SL-G4", 27, "Бифуркатор", "Новый", 5000],
+    ["Сетевая карта XL710-10G-4S-X8 10Gbe", "10GT-XL-10G-4S", 6, "Сетевая карта", "Новый", 10000],
+    ["Б/У Сетевая карта CX4121A 25GbE", "BY-MELL-CX-25G", 16, "Сетевая карта", "Б/У", 6000],
+    ["SSD crucial mx500 250gb", "SSD-CRUC-250GB", 1, "SSD", "Новый", 4300],
+    ["SSD crucial mx500 1tb", "SSD-CRUC-1TB", 4, "SSD", "Новый", 7500],
+    ["SSD 870 EVO 250Gb", "SSD-SAMS-250GB", 2, "SSD", "Новый", 4800],
+    ["SSD samsung 980 500gb", "SSD-SAMS-500GB", 1, "SSD", "Новый", 9000],
+    ["SSD msi spatium m480pro 4tb", "SSD-MSI-4TB", 3, "SSD", "Новый", 40000],
+    ["SSD kingston fury 4tb", "SSD-KING-4TB", 3, "SSD", "Новый", 35000],
+    ["HDD seagate skyhawk ai 14tb", "HDD-SKY-14TB", 1, "HDD", "Новый", 23000],
+    ["Make It Green 10G-SR 850nm", "SFP-MIG-10G", 15, "Трансивер", "Новый", 1000],
+    ["FIBO 1.25G", "SFP-FIBO-1G", 8, "Трансивер", "Новый", 600],
+    ["Lr-Link LRXP0010-Y3ATR RJ45", "SFP-LR-RJ45", 45, "Трансивер", "Новый", 3800],
+    ["FIВО FТ-S10-RJ45(30m) 1/10GВАSЕ-Т SFР+ RJ45", "SFP-FIBO-RJ45", 8, "Трансивер", "Новый", 3800],
+    ["Lr-Link LRXP8510-X3ATL sfp+ 10G-SR 850nm 10G", "SFP-LR-10G", 68, "Трансивер", "Новый", 1000],
+    ["Cisco XFP-10GMM-SR 10G", "XFP-CISCO-10G", 10, "Трансивер", "Новый", 5000],
+    ["Lr-Link sfp28 25G-SR 850nm 25G T4", "SFP-LR-T4-25G", 63, "Трансивер", "Новый", 1500],
+    ["Lr-Link sfp28 25G-SR 850nm 25G T8", "SFP-LR-T8-25G", 70, "Трансивер", "Новый", 1500],
+    ["10Gtek sfp28 25G-SR 850nm 25G", "SFP-10GT-25G", 73, "Трансивер", "Новый", 1500],
+    ["Mikrotik qsfp 28 100G-SR4 850nm MMF 100G", "QSFP-MIKR-100G", 4, "Трансивер", "Новый", 4000],
+    ["Lr-Link qsfp 28 100G-SR4 850nm MMF 100G", "QSFP-LR-100G", 20, "Трансивер", "Новый", 4000],
+    ["MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 1 метр", "OPTI-100G-1M", 20, "Оптический-патчкорд", "Новый", 2000],
+    ["MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 2 метра", "OPTI-100G-2M", 26, "Оптический-патчкорд", "Новый", 2500],
+    ["MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 20 метров", "OPTI-100G-20M", 9, "Оптический-патчкорд", "Новый", 5000],
+    ["MPO\\UPC FF MM, 12 волокон, OM4 100GBASE-SR4, 30 метров", "OPTI-100G-100M", 15, "Оптический-патчкорд", "Новый", 7000],
+    ["Micro-hi (8-pin, ATX 12V)", "CON-MIC-HI", 1000, "Коннектор", "Новый", 80],
+    ["12vhpwr 600w for 5090", "CON-12-VH", 1000, "Коннектор", "Новый", 100],
+    ["YY15050M12B snowfan 4.1A", "VENT-SNOW-1505", 80, "Вентилятор ГПУ", "Новый", 2000],
+    ["RA15051HD1 RDK Cooler 1.8A", "VENT-RDK-150", 7, "Вентилятор ГПУ", "Новый", 1000],
+    ["YD12038B12VNM 2.7A", "VENT-YD-1203", 9, "Вентилятор ГПУ", "Новый", 700],
+    ["RA12038HD1 RDK Cooler 2.3A", "VENT-RDK-1203", 59, "Вентилятор ГПУ", "Новый", 700],
+    ["DC BRUSHLESS QWE12038NM", "VENT-DC-QWE12", 6, "Вентилятор ГПУ", "Новый", 800],
+    ["YY12038L12B SnowFan 2.8A", "VENT-SNOW-1203", 40, "Вентилятор ГПУ", "Новый", 600],
+  ];
+
+  const seedProducts = avitoProductRows.map((row, index) => createAvitoProduct(row, index));
+
   const categorySeo = {
     Все: "Сводный каталог комплектующих для серверов, сетевой инфраструктуры и ЦОД.",
+    Адаптер: "PCIe, MCIO и SlimSAS адаптеры с фильтрацией по интерфейсу, поколению, разъему и состоянию.",
+    Бифуркатор: "PCIe бифуркаторы и платы расширения для серверных сборок и NVMe/SAS-подключений.",
+    "Вентилятор ГПУ": "Вентиляторы и кулеры для GPU и серверных систем охлаждения с фильтрами по току и производителю.",
+    Кабель: "SlimSAS, MCIO, U.2 и прямые кабели с подбором по длине, интерфейсу, разъему и производителю.",
+    Коннектор: "Силовые и сигнальные коннекторы для серверных комплектующих и GPU-подключений.",
+    "Оптический-патчкорд": "MPO/UPC OM4 патч-корды для 100GBASE-SR4 с фильтрами по длине и совместимости.",
+    "Райзер ГПУ": "GPU-райзеры и прямые кабели с подбором по длине и интерфейсу.",
+    "Сетевая карта": "Серверные NIC и сетевые карты с фильтрами по скорости, интерфейсу и состоянию.",
+    SSD: "SSD-накопители с фильтрами по емкости, интерфейсу, производителю и наличию.",
+    HDD: "HDD-накопители для серверов, СХД и видеонаблюдения с фильтрами по емкости и интерфейсу.",
+    Трансивер: "SFP, SFP+, SFP28, XFP и QSFP28 трансиверы с фильтрами по скорости, разъему и совместимости.",
     Трансиверы: "SFP, SFP+, QSFP+ и QSFP28 модули с фильтрами по скорости, разъему, дальности и совместимости.",
     Кабели: "DAC, AOC, SAS, Ethernet и силовые кабели для серверных стоек, PDU и систем хранения.",
     "Оптические патч-корды": "Патч-корды OM4 и OS2 с разъемами LC, MPO и другими типами для кроссовых подключений.",
     Адаптеры: "Сетевые адаптеры, HBA и серверные платы расширения для Dell, HPE, Supermicro и других платформ.",
+    Накопители: "SSD и HDD для серверов, рабочих станций, систем хранения и видеонаблюдения.",
+    Охлаждение: "Вентиляторы, кулеры и комплектующие охлаждения для серверных шасси и ускорителей.",
   };
 
-  const filterConfig = [
-    { key: "brand", label: "Производитель" },
-    { key: "type", label: "Тип товара" },
-    { key: "interface", label: "Интерфейс" },
-    { key: "speed", label: "Скорость" },
-    { key: "length", label: "Длина/дальность" },
-    { key: "connector", label: "Тип разъема" },
-    { key: "compatibility", label: "Совместимость" },
-    { key: "condition", label: "Состояние" },
-    { key: "availability", label: "Наличие" },
-  ];
+  const filterDefinitions = {
+    type: { key: "type", label: "Тип товара" },
+    brand: { key: "brand", label: "Производитель" },
+    length: { key: "length", label: "Длина" },
+    capacity: { key: "capacity", label: "Емкость" },
+    interface: { key: "interface", label: "Интерфейс" },
+    speed: { key: "speed", label: "Скорость" },
+    connector: { key: "connector", label: "Тип разъема" },
+    compatibility: { key: "compatibility", label: "Совместимость" },
+    condition: { key: "condition", label: "Состояние" },
+    availability: { key: "availability", label: "Наличие" },
+  };
+
+  const categoryFilterKeys = {
+    Все: ["type"],
+    Адаптер: ["type", "brand", "interface", "speed", "connector", "compatibility", "condition", "availability"],
+    Бифуркатор: ["type", "brand", "interface", "speed", "connector", "compatibility", "condition", "availability"],
+    "Вентилятор ГПУ": ["type", "brand", "speed", "connector", "compatibility", "condition", "availability"],
+    Кабель: ["type", "brand", "length", "interface", "connector", "speed", "condition", "availability"],
+    Коннектор: ["type", "brand", "connector", "speed", "condition", "availability"],
+    "Оптический-патчкорд": ["type", "brand", "length", "connector", "speed", "compatibility", "condition", "availability"],
+    "Райзер ГПУ": ["type", "brand", "length", "interface", "connector", "condition", "availability"],
+    "Сетевая карта": ["type", "brand", "interface", "speed", "connector", "compatibility", "condition", "availability"],
+    SSD: ["type", "brand", "capacity", "interface", "condition", "availability"],
+    HDD: ["type", "brand", "capacity", "interface", "condition", "availability"],
+    Трансивер: ["type", "brand", "speed", "interface", "connector", "compatibility", "condition", "availability"],
+    Кабели: ["type", "brand", "length", "interface", "connector", "speed", "condition", "availability"],
+    Адаптеры: ["type", "brand", "interface", "speed", "connector", "compatibility", "condition", "availability"],
+    Накопители: ["type", "brand", "capacity", "interface", "condition", "availability"],
+    "Оптические патч-корды": ["type", "brand", "length", "connector", "speed", "compatibility", "condition", "availability"],
+    Охлаждение: ["type", "brand", "speed", "connector", "compatibility", "condition", "availability"],
+    Трансиверы: ["type", "brand", "speed", "interface", "connector", "compatibility", "condition", "availability"],
+  };
+
+  const filterConfig = Object.values(filterDefinitions);
 
   const state = {
     category: "Все",
     search: "",
     sort: "relevance",
     page: 1,
-    pageSize: 6,
+    pageSize: 9,
     priceMin: "",
     priceMax: "",
     filters: Object.fromEntries(filterConfig.map((item) => [item.key, new Set()])),
@@ -362,7 +544,7 @@
     csvPreview: [],
   };
 
-  let products = loadJSON(STORAGE.products, defaultProducts);
+  let products = hydrateProducts(loadJSON(STORAGE.products, null));
   let cart = loadJSON(STORAGE.cart, []);
   let favorites = new Set(loadJSON(STORAGE.favorites, []));
   let orders = loadJSON(STORAGE.orders, []);
@@ -379,6 +561,7 @@
     sortSelect: $("#sortSelect"),
     priceMin: $("#priceMin"),
     priceMax: $("#priceMax"),
+    priceRangeNote: $("#priceRangeNote"),
     facetFilters: $("#facetFilters"),
     activeFilterCount: $("#activeFilterCount"),
     selectedFilters: $("#selectedFilters"),
@@ -422,6 +605,340 @@
 
   function saveJSON(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function hydrateProducts(savedProducts) {
+    if (!Array.isArray(savedProducts) || savedProducts.length === 0) {
+      localStorage.setItem(STORAGE.seedVersion, CATALOG_SEED_VERSION);
+      return structuredClone(seedProducts);
+    }
+
+    const migratedProducts = savedProducts.map(migrateVisibleBranding);
+    let changed = JSON.stringify(migratedProducts) !== JSON.stringify(savedProducts);
+    if (localStorage.getItem(STORAGE.seedVersion) === CATALOG_SEED_VERSION) {
+      if (changed) saveJSON(STORAGE.products, migratedProducts);
+      return migratedProducts;
+    }
+
+    const hydrated = structuredClone(seedProducts);
+    saveJSON(STORAGE.products, hydrated);
+    localStorage.setItem(STORAGE.seedVersion, CATALOG_SEED_VERSION);
+    return hydrated;
+  }
+
+  function createRequestedProduct(rawName, index) {
+    const name = rawName.replace(/\s+/g, " ").trim();
+    const lower = normalize(name);
+    const category = inferCategory(lower);
+    const brand = inferBrand(lower);
+    const type = inferType(lower, category);
+    const interfaceValue = inferInterface(lower, category);
+    const speed = inferSpeed(lower, category);
+    const sizeValue = inferLength(lower, category);
+    const length = category === "Накопители" ? "" : sizeValue;
+    const capacity = category === "Накопители" ? sizeValue : "";
+    const connector = inferConnector(lower, category);
+    const condition = lower.startsWith("б/у") ? "Б/У" : "Новый";
+    const photo = imageForRequestedProduct(lower);
+
+    return {
+      id: `vmz-added-${String(index + 1).padStart(3, "0")}`,
+      category,
+      name,
+      sku: `SSC-${String(index + 1).padStart(3, "0")}`,
+      brand,
+      type,
+      interface: interfaceValue,
+      speed,
+      length,
+      capacity,
+      connector,
+      compatibility: inferCompatibility(category, lower),
+      condition,
+      stock: "Под заказ / уточнить наличие",
+      price: null,
+      vat: true,
+      status: "request",
+      thumbPosition: photo.position || thumbPositionForCategory(category),
+      ...(photo.src ? { image: photo.src, imagePosition: photo.position } : {}),
+      description: `${name}. Позиция добавлена в каталог серверных комплектующих; цена, наличие и срок поставки уточняются менеджером.`,
+      specs: {
+        Производитель: brand,
+        Тип: type,
+        Интерфейс: interfaceValue,
+        Скорость: speed,
+        ...(length ? { Длина: length } : {}),
+        ...(capacity ? { Емкость: capacity } : {}),
+        Разъем: connector,
+      },
+    };
+  }
+
+  function createAvitoProduct(row, index) {
+    const [rawName, rawSku, rawStock, rawCategory, rawType, rawPrice] = row;
+    const name = String(rawName || `Товар ${index + 1}`).replace(/\s+/g, " ").trim();
+    const sku = String(rawSku || `AVITO-${String(index + 1).padStart(3, "0")}`).trim();
+    const category = String(rawCategory || "Кабель").trim();
+    const excelType = String(rawType || (normalize(name).startsWith("б/у") ? "Б/У" : "Новый")).trim();
+    const groupCategory = avitoCategoryGroup(category);
+    const lower = normalize(`${name} ${sku}`);
+    const brand = inferBrand(lower);
+    const type = inferAvitoProductType(lower, category);
+    const interfaceValue = inferInterface(lower, groupCategory);
+    const speed = inferSpeed(lower, groupCategory);
+    const sizeValue = inferLength(lower, groupCategory);
+    const isDrive = groupCategory === "Накопители";
+    const length = isDrive ? "" : sizeValue;
+    const capacity = isDrive ? sizeValue : "";
+    const connector = inferConnector(lower, groupCategory);
+    const compatibility = inferCompatibility(groupCategory, lower);
+    const stockQty = Number(rawStock);
+    const price = Number(String(rawPrice ?? "").replace(/\s/g, "").replace(",", "."));
+    const numericPrice = Number.isFinite(price) ? price : null;
+    const photo = imageForRequestedProduct(lower);
+
+    return {
+      id: `avito-${slugifyId(sku || name, index)}`,
+      category,
+      name,
+      sku,
+      brand,
+      type,
+      interface: interfaceValue,
+      speed,
+      length,
+      capacity,
+      connector,
+      compatibility,
+      condition: excelType,
+      stock: Number.isFinite(stockQty) && stockQty > 0 ? `В наличии: ${stockQty} шт.` : "Нет в наличии",
+      price: numericPrice,
+      vat: true,
+      status: numericPrice !== null && Number.isFinite(stockQty) && stockQty > 0 ? "cart" : "request",
+      thumbPosition: photo.position || thumbPositionForCategory(groupCategory),
+      ...(photo.src ? { image: photo.src, imagePosition: photo.position } : {}),
+      priceBadge: "+22%",
+      description: `${name}. Остаток по файлу: ${Number.isFinite(stockQty) ? `${stockQty} шт.` : "уточняется"}. Цена указана по колонке "Цена на авито"; поставку подтверждает менеджер.`,
+      specs: {
+        "Категория": category,
+        "Тип товара из Excel": excelType,
+        "Остаток": Number.isFinite(stockQty) ? `${stockQty} шт.` : "Уточняется",
+        "Цена на авито": numericPrice === null ? "Цена по запросу" : formatPrice(numericPrice),
+        Производитель: brand,
+        Тип: type,
+        Интерфейс: interfaceValue,
+        Скорость: speed,
+        ...(length ? { Длина: length } : {}),
+        ...(capacity ? { Емкость: capacity } : {}),
+        Разъем: connector,
+      },
+    };
+  }
+
+  function avitoCategoryGroup(category) {
+    const value = normalize(category);
+    if (value === "ssd" || value === "hdd") return "Накопители";
+    if (value.includes("трансивер")) return "Трансиверы";
+    if (value.includes("оптический")) return "Оптические патч-корды";
+    if (value.includes("вентилятор")) return "Охлаждение";
+    if (value.includes("адаптер") || value.includes("сетевая карта") || value.includes("бифуркатор")) return "Адаптеры";
+    return "Кабели";
+  }
+
+  function inferAvitoProductType(lower, category) {
+    const value = normalize(category);
+    if (value === "ssd") return "SSD";
+    if (value === "hdd") return "HDD";
+    if (value.includes("сетевая карта")) return "NIC";
+    if (value.includes("бифуркатор")) return "PCIe бифуркатор";
+    if (value.includes("вентилятор")) return lower.includes("cooler") ? "Кулер" : "Вентилятор";
+    if (value.includes("коннектор")) return "Коннектор";
+    if (value.includes("райзер")) return "Райзер";
+    return inferType(lower, avitoCategoryGroup(category));
+  }
+
+  function slugifyId(value, index) {
+    const slug = normalize(value)
+      .replace(/[^a-z0-9а-я]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    return slug || String(index + 1).padStart(3, "0");
+  }
+
+  function imageForRequestedProduct(lower) {
+    if (/ssd crucial mx500 250gb/.test(lower)) return productPhoto("crucial-mx500-250gb.png");
+    if (/ssd crucial mx500 1tb/.test(lower)) return productPhoto("crucial-mx500-box.png");
+    if (/ssd 870 evo 250gb/.test(lower)) return productPhoto("samsung-870-evo-250gb.png");
+    if (/ssd samsung 980 500gb/.test(lower)) return productPhoto("samsung-980-500gb.png");
+    if (/ssd msi spatium m480pro 4tb/.test(lower)) return productPhoto("msi-spatium-m480pro-4tb.png");
+    if (/ssd kingston fury 4tb/.test(lower)) return productPhoto("kingston-fury-4tb.png");
+    if (/hdd seagate skyhawk ai 14tb/.test(lower)) return productPhoto("seagate-skyhawk-ai-14tb.png");
+    if (/12vhpwr/.test(lower)) return productPhoto("12vhpwr-600w-5090.png");
+    if (/lr-slu2-60|8i gen4 to u2|sff-6639/.test(lower)) return productPhoto("0.6 lr-link u2.png");
+    if (/4 port slimsas|pcie 2 ports slimsas adapter|lrfcf931/.test(lower)) {
+      return productPhoto("slimsas-adapter-front.png");
+    }
+    if (/lrfna921a|sa22n216p|lrfcf921/.test(lower)) return productPhoto("slimsas-adapter-back.png");
+    return {};
+  }
+
+  function productPhoto(fileName, position = "center") {
+    return {
+      src: `${productImagePath}${fileName}`,
+      position,
+    };
+  }
+
+  function migrateVisibleBranding(product) {
+    const next = { ...product };
+    if (next.brand === "VMZ") next.brand = "SpecServer";
+    if (typeof next.sku === "string") {
+      next.sku = next.sku.replaceAll("-VMZ", "-SPEC").replace(/^VMZ-/, "SSC-");
+    }
+    return next;
+  }
+
+  function inferCategory(lower) {
+    if (/\b(ssd|hdd)\b/.test(lower)) return "Накопители";
+    if (/snowfan|cooler|brushless|yy\d|ra\d|yd\d|qwe12038/.test(lower)) return "Охлаждение";
+    if (/mpo\\?upc|12 волокон|om4 100gbase-sr4/.test(lower)) return "Оптические патч-корды";
+    if (/сетевая карта|адаптер|adapter|бифуркатор|xl710|cx4121a/.test(lower)) return "Адаптеры";
+    if (/sfp|qsfp|xfp|10g-sr|100g-sr4|1\.25g|1\/10g|850nm|rj45/.test(lower)) return "Трансиверы";
+    return "Кабели";
+  }
+
+  function inferBrand(lower) {
+    if (/10gtek|10gt/.test(lower)) return "10Gtek";
+    if (/lr-link|lr link|lrfcf|lrfna|lrxp|lrxp/.test(lower)) return "LR-Link";
+    if (/lr-link|lr link/.test(lower)) return "LR-Link";
+    if (/cisco/.test(lower)) return "Cisco";
+    if (/mikrotik/.test(lower)) return "MikroTik";
+    if (/mellanox|mell|cx4121a/.test(lower)) return "Mellanox";
+    if (/intel|xl710/.test(lower)) return "Intel";
+    if (/make it green/.test(lower)) return "Make It Green";
+    if (/fibo|fiво/.test(lower)) return "FIBO";
+    if (/crucial/.test(lower)) return "Crucial";
+    if (/samsung|870 evo/.test(lower)) return "Samsung";
+    if (/msi/.test(lower)) return "MSI";
+    if (/kingston/.test(lower)) return "Kingston";
+    if (/seagate/.test(lower)) return "Seagate";
+    if (/snowfan/.test(lower)) return "SnowFan";
+    if (/rdk/.test(lower)) return "RDK";
+    if (/oem/.test(lower)) return "OEM";
+    return "OEM";
+  }
+
+  function inferType(lower, category) {
+    if (category === "Накопители") return lower.includes("hdd") ? "HDD" : "SSD";
+    if (category === "Охлаждение") return /cooler/.test(lower) ? "Кулер" : "Вентилятор";
+    if (category === "Оптические патч-корды") return "MPO патч-корд";
+    if (/сетевая карта|xl710|cx4121a/.test(lower)) return "NIC";
+    if (/бифуркатор/.test(lower)) return "PCIe бифуркатор";
+    if (/адаптер|adapter/.test(lower)) return "PCIe адаптер";
+    if (/qsfp\s*28|qsfp28/.test(lower)) return "QSFP28";
+    if (/xfp/.test(lower)) return "XFP";
+    if (/sfp28/.test(lower)) return "SFP28";
+    if (/sfp\+|sfp|10g-sr|1\/10g|1\.25g/.test(lower)) return "SFP/SFP+";
+    if (/12vhpwr|micro-hi|atx/.test(lower)) return "Кабель питания";
+    if (/mcio/.test(lower)) return "MCIO кабель";
+    if (/slimsas|sff-8654|sff-8639|u\.?2|sff-6639/.test(lower)) return "SlimSAS/U.2 кабель";
+    if (/прямой/.test(lower)) return "Прямой кабель";
+    return "Серверные комплектующие";
+  }
+
+  function inferInterface(lower, category) {
+    if (category === "Накопители") {
+      if (/mx500|870 evo/.test(lower)) return "SATA 2.5";
+      if (/skyhawk/.test(lower)) return "SATA 3.5";
+      return "M.2 NVMe";
+    }
+    if (category === "Охлаждение") return "DC/PWM";
+    if (/sff-8654/.test(lower)) return "SFF-8654 8i";
+    if (/sff-8639|u\.?2|sff-6639/.test(lower)) return "U.2 / SFF";
+    if (/mcio/.test(lower)) return "MCIO";
+    if (/mpo/.test(lower)) return "MPO";
+    if (/rj45/.test(lower)) return "RJ45";
+    if (/qsfp\s*28|qsfp28/.test(lower)) return "QSFP28";
+    if (/sfp28/.test(lower)) return "SFP28";
+    if (/xfp/.test(lower)) return "XFP";
+    if (/sfp/.test(lower)) return "SFP/SFP+";
+    if (/pcie|gen4|gen5/.test(lower)) return "PCIe";
+    if (/12vhpwr|micro-hi|atx/.test(lower)) return "ATX/GPU Power";
+    return "Уточняется";
+  }
+
+  function inferSpeed(lower, category) {
+    if (category === "Накопители") return /hdd/.test(lower) ? "SATA HDD" : "SSD";
+    if (category === "Охлаждение") {
+      const amp = lower.match(/(\d+(?:[.,]\d+)?)\s*a/);
+      return amp ? `${amp[1].replace(",", ".")}A` : "DC";
+    }
+    if (/100g/.test(lower)) return "100G";
+    if (/25g/.test(lower)) return "25G";
+    if (/10gbe|10g/.test(lower)) return "10G";
+    if (/1\/10g/.test(lower)) return "1/10G";
+    if (/1\.25g/.test(lower)) return "1.25G";
+    if (/gen5/.test(lower)) return "Gen5";
+    if (/gen4/.test(lower)) return "Gen4";
+    if (/600w/.test(lower)) return "600W";
+    if (/12g/.test(lower)) return "12G";
+    return "Уточняется";
+  }
+
+  function inferLength(lower, category) {
+    const capacity = lower.match(/(\d+(?:[.,]\d+)?)\s*(tb|gb)/);
+    if (category === "Накопители" && capacity) return `${capacity[1].replace(",", ".")} ${capacity[2].toUpperCase()}`;
+
+    const cm = lower.match(/(?:length:)?\s*(\d+)\s*(?:см|cm)/);
+    if (cm) return `${cm[1]} см`;
+
+    const meters = lower.match(/(\d+)\s*(?:метр|метра|метров)\b/);
+    if (meters) return `${meters[1]} м`;
+
+    const atx = lower.match(/(\d+)\s*pin/);
+    if (category === "Кабели" && atx) return `${atx[1]} pin`;
+
+    return "Уточняется";
+  }
+
+  function inferConnector(lower, category) {
+    if (category === "Накопители") return /m480|980|fury/.test(lower) ? "M.2" : "SATA";
+    if (category === "Охлаждение") return "Fan header";
+    if (/sff-8654/.test(lower)) return "SFF-8654";
+    if (/sff-8639|sff-6639|u\.?2/.test(lower)) return "U.2";
+    if (/mcio/.test(lower)) return "MCIO";
+    if (/mpo/.test(lower)) return "MPO/UPC";
+    if (/rj45/.test(lower)) return "RJ45";
+    if (/qsfp\s*28|qsfp28/.test(lower)) return "QSFP28";
+    if (/sfp28/.test(lower)) return "SFP28";
+    if (/xfp/.test(lower)) return "XFP";
+    if (/sfp/.test(lower)) return "SFP/SFP+";
+    if (/12vhpwr/.test(lower)) return "12VHPWR";
+    if (/micro-hi|atx/.test(lower)) return "Micro-hi / ATX 12V";
+    return "Уточняется";
+  }
+
+  function inferCompatibility(category, lower) {
+    if (category === "Накопители") return ["Серверы", "СХД", "Рабочие станции"];
+    if (category === "Охлаждение") return ["Серверные шасси", "GPU", "Системы охлаждения"];
+    if (category === "Оптические патч-корды") return ["QSFP28", "100GBASE-SR4", "MMF OM4"];
+    if (category === "Трансиверы") {
+      const values = ["Коммутаторы", "Серверные NIC"];
+      if (/cisco/.test(lower)) values.push("Cisco");
+      if (/mikrotik/.test(lower)) values.push("MikroTik");
+      if (/lr-link/.test(lower)) values.push("LR-Link");
+      return values;
+    }
+    if (category === "Адаптеры") return ["Серверы", "PCIe", "NVMe/SAS"];
+    return ["Серверы", "HBA/RAID", "NVMe/U.2"];
+  }
+
+  function thumbPositionForCategory(category) {
+    if (category === "Трансиверы") return "50% 72%";
+    if (category === "Оптические патч-корды") return "30% 72%";
+    if (category === "Адаптеры") return "74% 72%";
+    if (category === "Накопители") return "73% 66%";
+    if (category === "Охлаждение") return "83% 39%";
+    return "53% 69%";
   }
 
   function normalize(value) {
@@ -478,6 +995,7 @@
         product.type,
         product.interface,
         product.speed,
+        product.capacity,
         product.connector,
         product.description,
         product.condition,
@@ -495,6 +1013,8 @@
   function getFacetValue(product, key) {
     if (key === "availability") return [stockGroup(product)];
     if (key === "compatibility") return product.compatibility || [];
+    if (key === "capacity") return [product.capacity || (product.category === "Накопители" ? product.length : "")].filter(Boolean);
+    if (key === "length" && product.category === "Накопители") return [];
     return [product[key]].filter(Boolean);
   }
 
@@ -502,6 +1022,62 @@
     return state.category === "Все"
       ? products
       : products.filter((product) => product.category === state.category);
+  }
+
+  function activeFilterConfig() {
+    const keys = categoryFilterKeys[state.category] || categoryFilterKeys["Все"];
+    return keys.map((key) => filterDefinitions[key]).filter(Boolean);
+  }
+
+  function clearInactiveFacetFilters() {
+    const activeKeys = new Set(activeFilterConfig().map((filter) => filter.key));
+    for (const [key, selected] of Object.entries(state.filters)) {
+      if (!activeKeys.has(key)) selected.clear();
+    }
+  }
+
+  function pruneUnavailableFacetValues() {
+    const categoryProducts = productsForCategory();
+    for (const { key } of activeFilterConfig()) {
+      const available = new Set(
+        categoryProducts.flatMap((product) => getFacetValue(product, key).map(normalize))
+      );
+      for (const value of [...state.filters[key]]) {
+        if (!available.has(normalize(value))) state.filters[key].delete(value);
+      }
+    }
+  }
+
+  function filteredProductsForFacet(excludedKey, includePrice = true) {
+    let result = productsForCategory();
+    const query = normalize(state.search);
+
+    if (query) {
+      result = result.filter((product) => productSearchText(product).includes(query));
+    }
+
+    for (const { key } of activeFilterConfig()) {
+      if (key === excludedKey) continue;
+      const selected = state.filters[key];
+      if (!selected.size) continue;
+      result = result.filter((product) => {
+        const values = getFacetValue(product, key).map(normalize);
+        return [...selected].some((selectedValue) => values.includes(normalize(selectedValue)));
+      });
+    }
+
+    if (!includePrice) return result;
+
+    const min = Number(state.priceMin);
+    const max = Number(state.priceMax);
+    if (state.priceMin !== "") {
+      result = result.filter((product) => Number.isFinite(Number(product.price)) && Number(product.price) >= min);
+    }
+    if (state.priceMax !== "") {
+      result = result.filter((product) => Number.isFinite(Number(product.price)) && Number(product.price) <= max);
+    }
+
+    return result;
   }
 
   function filteredProducts() {
@@ -512,7 +1088,7 @@
       result = result.filter((product) => productSearchText(product).includes(query));
     }
 
-    for (const { key } of filterConfig) {
+    for (const { key } of activeFilterConfig()) {
       const selected = state.filters[key];
       if (!selected.size) continue;
       result = result.filter((product) => {
@@ -557,12 +1133,14 @@
   }
 
   function activeFilterTotal() {
-    const facets = Object.values(state.filters).reduce((sum, set) => sum + set.size, 0);
+    const facets = activeFilterConfig().reduce((sum, filter) => sum + state.filters[filter.key].size, 0);
     const price = Number(Boolean(state.priceMin)) + Number(Boolean(state.priceMax));
     return facets + price + Number(Boolean(state.search));
   }
 
   function renderAll() {
+    clearInactiveFacetFilters();
+    pruneUnavailableFacetValues();
     refs.metricSku.textContent = String(products.length);
     renderCategories();
     renderFacets();
@@ -584,9 +1162,9 @@
   }
 
   function renderFacets() {
-    const base = productsForCategory();
-    refs.facetFilters.innerHTML = filterConfig
+    refs.facetFilters.innerHTML = activeFilterConfig()
       .map(({ key, label }) => {
+        const base = filteredProductsForFacet(key);
         const counts = new Map();
         for (const product of base) {
           for (const value of getFacetValue(product, key)) {
@@ -595,9 +1173,11 @@
         }
         const options = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0], "ru"));
         if (!options.length) return "";
+        const selectedValues = state.filters[key];
+        const isPrimaryType = key === "type";
         return `
-          <fieldset class="facet-group">
-            <legend class="facet-title">${escapeHTML(label)} <span>${options.length}</span></legend>
+          <fieldset class="facet-group ${isPrimaryType ? "primary-facet" : ""}">
+            <legend class="facet-title">${escapeHTML(label)} <span>${selectedValues.size ? `${selectedValues.size} выбрано` : options.length}</span></legend>
             <div class="facet-options">
               ${options
                 .map(([value, count]) => {
@@ -615,6 +1195,28 @@
       })
       .join("");
     refs.activeFilterCount.textContent = `${activeFilterTotal()} активно`;
+    renderPriceRange();
+  }
+
+  function renderPriceRange() {
+    const prices = filteredProductsForFacet(null, false)
+      .map((product) => Number(product.price))
+      .filter((price) => Number.isFinite(price));
+
+    if (!prices.length) {
+      refs.priceRangeNote.textContent = "В этой выборке цены по запросу.";
+      refs.priceMin.placeholder = "по запросу";
+      refs.priceMax.placeholder = "по запросу";
+      return;
+    }
+
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    refs.priceRangeNote.textContent = min === max
+      ? `Доступная цена: ${formatPrice(min)}`
+      : `Диапазон с ценами: ${formatPrice(min)} - ${formatPrice(max)}`;
+    refs.priceMin.placeholder = String(min);
+    refs.priceMax.placeholder = String(max);
   }
 
   function renderProducts() {
@@ -636,10 +1238,13 @@
     const favorite = favorites.has(product.id);
     const addDisabled = canAddToCart(product) ? "" : "disabled";
     const addLabel = canAddToCart(product) ? "В корзину" : "Через КП";
+    const imageSrc = product.image || heroImage;
+    const imagePosition = product.imagePosition || product.thumbPosition || "center";
+    const thumbClass = product.image ? "product-thumb has-product-photo" : "product-thumb";
     return `
       <article class="product-card" data-product-id="${escapeAttr(product.id)}">
-        <div class="product-thumb">
-          <img src="${heroImage}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(product.thumbPosition || "center")}" loading="lazy" />
+        <div class="${thumbClass}">
+          <img src="${escapeAttr(imageSrc)}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(imagePosition)}" loading="lazy" />
           <span class="thumb-label">${escapeHTML(product.type)} / ${escapeHTML(product.speed)}</span>
           <button class="favorite-toggle" type="button" aria-label="${favorite ? "Убрать из избранного" : "Добавить в избранное"}" aria-pressed="${favorite}" data-action="favorite" data-id="${escapeAttr(product.id)}">${favorite ? "✓" : "+"}</button>
         </div>
@@ -648,7 +1253,10 @@
             <span class="stock-chip ${stockClass(product)}">${escapeHTML(stockGroup(product))}</span>
             <span class="status-chip">${escapeHTML(product.condition)}</span>
           </div>
-          <h3 class="product-title">${escapeHTML(product.name)}</h3>
+          <h3 class="product-title">
+            <span>${escapeHTML(product.name)}</span>
+            ${product.priceBadge ? `<span class="markup-badge">${escapeHTML(product.priceBadge)}</span>` : ""}
+          </h3>
           <p class="product-sku">${escapeHTML(product.sku)}</p>
           <p class="product-description">${escapeHTML(product.description)}</p>
         </div>
@@ -671,7 +1279,7 @@
     if (state.search) chips.push(`Поиск: ${state.search}`);
     if (state.priceMin) chips.push(`от ${state.priceMin} ₽`);
     if (state.priceMax) chips.push(`до ${state.priceMax} ₽`);
-    for (const { key, label } of filterConfig) {
+    for (const { key, label } of activeFilterConfig()) {
       for (const value of state.filters[key]) {
         chips.push(`${label}: ${value}`);
       }
@@ -747,6 +1355,9 @@
   }
 
   function renderProductDialog(product) {
+    const imageSrc = product.image || heroImage;
+    const imagePosition = product.imagePosition || product.thumbPosition || "center";
+    const imageClass = product.image ? "detail-image has-product-photo" : "detail-image";
     refs.productDialogTitle.textContent = product.name;
     refs.productBreadcrumb.textContent = `Каталог / ${product.category} / ${product.sku}`;
     const specs = {
@@ -755,7 +1366,7 @@
       Тип: product.type,
       Интерфейс: product.interface,
       Скорость: product.speed,
-      "Длина/дальность": product.length,
+      ...(product.capacity ? { Емкость: product.capacity } : { "Длина/дальность": product.length }),
       Разъем: product.connector,
       Состояние: product.condition,
       Наличие: product.stock,
@@ -763,8 +1374,8 @@
     };
     refs.productDialogBody.innerHTML = `
       <div class="product-detail-grid">
-        <div class="detail-image">
-          <img src="${heroImage}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(product.thumbPosition || "center")}" />
+        <div class="${imageClass}">
+          <img src="${escapeAttr(imageSrc)}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(imagePosition)}" />
         </div>
         <div>
           <div class="product-meta">
@@ -1012,7 +1623,7 @@
       };
     });
     return {
-      id: `VMZ-${String(Date.now()).slice(-8)}`,
+      id: `SSC-${String(Date.now()).slice(-8)}`,
       kind,
       status: "Новая заявка, ожидает подтверждения менеджером",
       createdAt: new Date().toISOString(),
@@ -1137,24 +1748,28 @@
 
   function csvRowToProduct(row) {
     const sku = valueByAlias(row, ["sku", "артикул", "код"]) || `SKU-${Date.now()}`;
+    const category = valueByAlias(row, ["category", "категория"]) || "Серверное оборудование";
     const priceRaw = valueByAlias(row, ["price", "цена", "цена с ндс"]).replace(/\s/g, "").replace(",", ".");
     const price = priceRaw === "" ? null : Number(priceRaw);
     const statusRaw = normalize(valueByAlias(row, ["status", "сценарий", "статус продажи"]));
     const stock = valueByAlias(row, ["stock", "наличие", "остаток"]) || "Под заказ";
+    const lengthValue = valueByAlias(row, ["length", "длина", "дальность"]);
+    const capacityValue = valueByAlias(row, ["capacity", "емкость", "объем"]);
     const compatibility = valueByAlias(row, ["compatibility", "совместимость"])
       .split(/[|,]/)
       .map((item) => item.trim())
       .filter(Boolean);
     return {
       id: slugify(sku),
-      category: valueByAlias(row, ["category", "категория"]) || "Серверное оборудование",
+      category,
       name: valueByAlias(row, ["name", "название", "товар"]) || sku,
       sku,
       brand: valueByAlias(row, ["brand", "бренд", "производитель"]) || "OEM",
       type: valueByAlias(row, ["type", "тип"]) || "Комплектующие",
       interface: valueByAlias(row, ["interface", "интерфейс"]) || "не указан",
       speed: valueByAlias(row, ["speed", "скорость"]) || "не указана",
-      length: valueByAlias(row, ["length", "длина", "дальность"]) || "не указана",
+      length: category === "Накопители" ? "" : lengthValue || "не указана",
+      capacity: category === "Накопители" ? capacityValue || lengthValue || "не указана" : capacityValue,
       connector: valueByAlias(row, ["connector", "разъем", "тип разъема"]) || "не указан",
       compatibility,
       condition: valueByAlias(row, ["condition", "состояние"]) || "Новый",
@@ -1167,6 +1782,7 @@
       specs: {
         Интерфейс: valueByAlias(row, ["interface", "интерфейс"]) || "не указан",
         Скорость: valueByAlias(row, ["speed", "скорость"]) || "не указана",
+        ...(category === "Накопители" ? { Емкость: capacityValue || lengthValue || "не указана" } : { Длина: lengthValue || "не указана" }),
         Разъем: valueByAlias(row, ["connector", "разъем", "тип разъема"]) || "не указан",
       },
     };
@@ -1181,6 +1797,7 @@
       products = [...bySku.values()];
     }
     saveJSON(STORAGE.products, products);
+    localStorage.setItem(STORAGE.seedVersion, CATALOG_SEED_VERSION);
     state.category = "Все";
     clearFilters();
     renderAll();
@@ -1196,9 +1813,10 @@
 
   function sampleCsv() {
     return [
-      "category;name;sku;brand;type;interface;speed;length;connector;compatibility;condition;stock;price;vat;status;description",
-      "Трансиверы;SFP28 25G SR 850 нм;SFP28-25G-SR;OEM;SFP28;LC Duplex;25G;100 м;LC;Cisco|Mellanox|Arista;Новый;В наличии: 14 шт.;6900;с НДС;cart;Трансивер для коротких 25G-соединений внутри ЦОД",
-      "Кабели;DAC QSFP28 100G 2 м;DAC-QSFP28-100G-2M;NVIDIA;DAC;QSFP28;100G;2 м;QSFP28;Mellanox|NVIDIA;Новый;Под заказ: 3 дня;;с НДС;request;Пассивный кабель для 100G-подключений",
+      "category;name;sku;brand;type;interface;speed;length;capacity;connector;compatibility;condition;stock;price;vat;status;description",
+      "Трансиверы;SFP28 25G SR 850 нм;SFP28-25G-SR;OEM;SFP28;LC Duplex;25G;100 м;;LC;Cisco|Mellanox|Arista;Новый;В наличии: 14 шт.;6900;с НДС;cart;Трансивер для коротких 25G-соединений внутри ЦОД",
+      "Кабели;DAC QSFP28 100G 2 м;DAC-QSFP28-100G-2M;NVIDIA;DAC;QSFP28;100G;2 м;;QSFP28;Mellanox|NVIDIA;Новый;Под заказ: 3 дня;;с НДС;request;Пассивный кабель для 100G-подключений",
+      "Накопители;SSD Samsung 980 500GB;SSD-980-500GB;Samsung;SSD;M.2 NVMe;SSD;;500 GB;M.2;Серверы|Рабочие станции;Новый;Под заказ: 2 дня;;с НДС;request;NVMe SSD для серверов и рабочих станций",
     ].join("\n");
   }
 
@@ -1267,6 +1885,7 @@
     state.search = event.target.value;
     refs.heroSearch.value = state.search;
     state.page = 1;
+    renderFacets();
     renderProducts();
   });
 
@@ -1275,6 +1894,7 @@
     state.search = refs.heroSearch.value;
     refs.catalogSearch.value = state.search;
     state.page = 1;
+    renderFacets();
     renderProducts();
     document.querySelector("#catalog").scrollIntoView({ behavior: "smooth", block: "start" });
     trackGoal("site_search", { query: state.search });
@@ -1492,7 +2112,7 @@
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "vmz-catalog-sample.csv";
+    link.download = "specserver-catalog-sample.csv";
     link.click();
     URL.revokeObjectURL(url);
   });
@@ -1513,8 +2133,9 @@
   });
 
   $("#restoreDemoButton").addEventListener("click", () => {
-    products = structuredClone(defaultProducts);
+    products = structuredClone(seedProducts);
     saveJSON(STORAGE.products, products);
+    localStorage.setItem(STORAGE.seedVersion, CATALOG_SEED_VERSION);
     clearFilters();
     renderAll();
     showToast("Демо-каталог восстановлен");

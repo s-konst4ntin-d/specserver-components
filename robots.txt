@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vmz-server-components.example/sitemap.xml
+Sitemap: https://specserver-components.example/sitemap.xml
