@@ -8,6 +8,7 @@
     orders: "vmz.orders.v1",
     profile: "vmz.profile.v1",
     seedVersion: "vmz.seedVersion.v1",
+    managerAccess: "vmz.managerAccess.v1",
   };
 
   const CATALOG_SEED_VERSION = "2026-08-28-avito-67";
@@ -549,6 +550,11 @@
   let favorites = new Set(loadJSON(STORAGE.favorites, []));
   let orders = loadJSON(STORAGE.orders, []);
   let profile = loadJSON(STORAGE.profile, null);
+  let managerAccess = loadJSON(STORAGE.managerAccess, false) === true;
+  if (!profile && managerAccess) {
+    managerAccess = false;
+    saveJSON(STORAGE.managerAccess, managerAccess);
+  }
 
   const $ = (selector) => document.querySelector(selector);
   const refs = {
@@ -584,6 +590,8 @@
     leadProductSummary: $("#leadProductSummary"),
     accountDialog: $("#accountDialog"),
     accountBody: $("#accountBody"),
+    adminSection: $("#admin"),
+    adminNavLink: $("#adminNavLink"),
     toast: $("#toast"),
     csvText: $("#csvText"),
     csvFile: $("#csvFile"),
@@ -1138,10 +1146,34 @@
     return facets + price + Number(Boolean(state.search));
   }
 
+  function hasManagerAccess() {
+    return Boolean(profile && managerAccess);
+  }
+
+  function renderManagerAccess() {
+    const visible = hasManagerAccess();
+    refs.adminSection.classList.toggle("hidden", !visible);
+    refs.adminSection.setAttribute("aria-hidden", String(!visible));
+    refs.adminNavLink.classList.toggle("hidden", !visible);
+    if (!visible && window.location.hash === "#admin") {
+      history.replaceState(null, "", "#catalog");
+    }
+  }
+
+  function requireManagerAccess() {
+    if (hasManagerAccess()) return true;
+    managerAccess = false;
+    saveJSON(STORAGE.managerAccess, managerAccess);
+    renderManagerAccess();
+    showToast("Импорт доступен только в кабинете менеджера");
+    return false;
+  }
+
   function renderAll() {
     clearInactiveFacetFilters();
     pruneUnavailableFacetValues();
     refs.metricSku.textContent = String(products.length);
+    renderManagerAccess();
     renderCategories();
     renderFacets();
     renderProducts();
@@ -1441,6 +1473,15 @@
         <button class="secondary-button" type="button" data-account="edit">Изменить профиль</button>
         <button class="secondary-button" type="button" data-account="clear">Выйти из демо-кабинета</button>
       </div>
+      <div class="manager-access-card">
+        <div>
+          <h3>Кабинет менеджера</h3>
+          <p class="muted">Импорт CSV и быстрая правка каталога скрыты из публичной навигации.</p>
+        </div>
+        <button class="${hasManagerAccess() ? "secondary-button" : "primary-button"} compact" type="button" data-manager="${hasManagerAccess() ? "close" : "open"}">
+          ${hasManagerAccess() ? "Скрыть админку" : "Открыть админку"}
+        </button>
+      </div>
       <h3>Избранное</h3>
       <div class="favorites-list">
         ${
@@ -1471,6 +1512,7 @@
   }
 
   function renderAdminSelect() {
+    if (!hasManagerAccess()) return;
     refs.adminProductSelect.innerHTML = products
       .map((product) => `<option value="${escapeAttr(product.id)}">${escapeHTML(product.sku)} · ${escapeHTML(product.name)}</option>`)
       .join("");
@@ -1632,7 +1674,7 @@
       items: orderItems,
       total: orderItems.reduce((sum, item) => sum + (Number(item.price) || 0) * item.qty, 0),
       notification: {
-        email: "sales@example.ru",
+        email: "настроенная почта отдела продаж",
         telegram: "sales-team-chat",
         mode: "demo-payload",
       },
@@ -2032,8 +2074,29 @@
     }
     if (accountButton?.dataset.account === "clear") {
       profile = null;
+      managerAccess = false;
       saveJSON(STORAGE.profile, profile);
+      saveJSON(STORAGE.managerAccess, managerAccess);
+      renderManagerAccess();
       renderAccount();
+    }
+    const managerButton = event.target.closest("[data-manager]");
+    if (managerButton?.dataset.manager === "open") {
+      managerAccess = true;
+      saveJSON(STORAGE.managerAccess, managerAccess);
+      renderManagerAccess();
+      renderAdminSelect();
+      renderAccount();
+      closeDialog(refs.accountDialog);
+      document.querySelector("#admin").scrollIntoView({ behavior: "smooth", block: "start" });
+      showToast("Админка открыта в кабинете менеджера");
+    }
+    if (managerButton?.dataset.manager === "close") {
+      managerAccess = false;
+      saveJSON(STORAGE.managerAccess, managerAccess);
+      renderManagerAccess();
+      renderAccount();
+      showToast("Админка скрыта из публичного просмотра");
     }
     const repeatButton = event.target.closest("[data-repeat]");
     if (repeatButton) {
@@ -2068,22 +2131,26 @@
   });
 
   $("#loadSampleCsvButton").addEventListener("click", () => {
+    if (!requireManagerAccess()) return;
     refs.csvText.value = sampleCsv();
   });
 
   refs.csvFile.addEventListener("change", async (event) => {
+    if (!requireManagerAccess()) return;
     const file = event.target.files?.[0];
     if (!file) return;
     refs.csvText.value = await file.text();
   });
 
   $("#previewCsvButton").addEventListener("click", () => {
+    if (!requireManagerAccess()) return;
     state.csvPreview = parseCsv(refs.csvText.value);
     renderAdminPreview();
     showToast(plural(state.csvPreview.length, ["строка распознана", "строки распознаны", "строк распознано"]));
   });
 
   $("#mergeCsvButton").addEventListener("click", () => {
+    if (!requireManagerAccess()) return;
     const incoming = parseCsv(refs.csvText.value);
     if (!incoming.length) {
       showToast("CSV не содержит товаров для импорта");
@@ -2096,6 +2163,7 @@
   });
 
   $("#replaceCsvButton").addEventListener("click", () => {
+    if (!requireManagerAccess()) return;
     const incoming = parseCsv(refs.csvText.value);
     if (!incoming.length) {
       showToast("CSV не содержит товаров для импорта");
@@ -2108,6 +2176,7 @@
   });
 
   $("#downloadCsvButton").addEventListener("click", () => {
+    if (!requireManagerAccess()) return;
     const blob = new Blob([sampleCsv()], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -2117,10 +2186,14 @@
     URL.revokeObjectURL(url);
   });
 
-  refs.adminProductSelect.addEventListener("change", (event) => fillAdminForm(event.target.value));
+  refs.adminProductSelect.addEventListener("change", (event) => {
+    if (!hasManagerAccess()) return;
+    fillAdminForm(event.target.value);
+  });
 
   $("#quickEditForm").addEventListener("submit", (event) => {
     event.preventDefault();
+    if (!requireManagerAccess()) return;
     const product = findProduct(refs.adminProductSelect.value);
     if (!product) return;
     const price = Number(refs.adminPrice.value);
@@ -2133,12 +2206,13 @@
   });
 
   $("#restoreDemoButton").addEventListener("click", () => {
+    if (!requireManagerAccess()) return;
     products = structuredClone(seedProducts);
     saveJSON(STORAGE.products, products);
     localStorage.setItem(STORAGE.seedVersion, CATALOG_SEED_VERSION);
     clearFilters();
     renderAll();
-    showToast("Демо-каталог восстановлен");
+    showToast("Excel-каталог восстановлен");
   });
 
   document.addEventListener("keydown", (event) => {

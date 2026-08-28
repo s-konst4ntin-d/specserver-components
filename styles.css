@@ -1219,6 +1219,52 @@ select {
   width: min(620px, 100%);
 }
 
+.contact-details {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.contact-row,
+.requisites-card {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: var(--radius);
+  background: rgba(15, 23, 42, 0.56);
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.18);
+}
+
+.contact-row span,
+.requisites-card span {
+  color: #8fb1d2;
+  font-family: "Fira Code", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contact-row strong {
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.requisites-card {
+  border-color: rgba(34, 197, 94, 0.36);
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(14, 165, 233, 0.12)),
+    rgba(15, 23, 42, 0.72);
+}
+
+.requisites-card p {
+  color: #ffffff;
+  font-family: "Fira Code", monospace;
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
 .contacts-section a {
   color: var(--accent-2);
   text-decoration: underline;
@@ -1338,6 +1384,30 @@ select {
   border: 1px solid #d9e2ef;
   border-radius: var(--radius);
   background: #f8fafc;
+}
+
+.manager-access-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 14px 0;
+  padding: 14px;
+  border: 1px solid rgba(14, 165, 233, 0.24);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(34, 197, 94, 0.08)),
+    #f8fafc;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+.manager-access-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.manager-access-card p {
+  margin: 0;
 }
 
 .cart-items,
@@ -1500,6 +1570,11 @@ select {
 
   .filters-panel {
     position: static;
+  }
+
+  .manager-access-card {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .workflow-band::before {

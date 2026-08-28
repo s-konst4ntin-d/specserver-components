@@ -33,7 +33,7 @@
 
       <nav class="top-nav" aria-label="Основная навигация">
         <a href="#catalog">Каталог</a>
-        <a href="#admin">Импорт</a>
+        <a class="manager-nav-link hidden" href="#admin" id="adminNavLink">Админка</a>
         <a href="#delivery">Доставка</a>
         <a href="#contacts">Контакты</a>
       </nav>
@@ -223,11 +223,11 @@
         </article>
       </section>
 
-      <section class="admin-section" id="admin" aria-labelledby="adminTitle">
+      <section class="admin-section hidden" id="admin" aria-labelledby="adminTitle" aria-hidden="true">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Администрирование</p>
-            <h2 id="adminTitle">Импорт и управление демо-каталогом</h2>
+            <h2 id="adminTitle">Импорт и управление каталогом</h2>
             <p>
               Прототип поддерживает обновление товаров из CSV прямо в браузере.
               В production этот сценарий переносится в CMS или интеграцию.
@@ -282,7 +282,7 @@
             <div class="button-row">
               <button class="primary-button" type="submit">Сохранить</button>
               <button class="secondary-button" type="button" id="restoreDemoButton">
-                Вернуть демо
+                Вернуть Excel-каталог
               </button>
             </div>
           </form>
@@ -301,34 +301,35 @@
         <div class="info-grid">
           <article class="service-card">
             <span class="service-index">01</span>
-            <h3>Доставка</h3>
+            <h3>Доставка СДЭК</h3>
             <p>
-              Самовывоз, курьерская доставка и отправка транспортными компаниями.
-              Автоматический расчет доставки не входит в первую версию.
+              Отправляем заказы из Нижнего Тагила через СДЭК до ПВЗ или курьером
+              после подтверждения наличия менеджером.
             </p>
           </article>
           <article class="service-card">
             <span class="service-index">02</span>
             <h3>Оплата</h3>
             <p>
-              Безналичный расчет для юридических лиц, счет после подтверждения
-              наличия и условий поставки менеджером.
+              Оплата при получении в ПВЗ СДЭК или по безналичному расчету для
+              юридических лиц после согласования счета.
             </p>
           </article>
           <article class="service-card">
             <span class="service-index">03</span>
-            <h3>Гарантии</h3>
+            <h3>Гарантия 1 год</h3>
             <p>
-              Гарантийный срок и состояние фиксируются в карточке товара и
-              подтверждаются в КП.
+              Гарантийный срок на серверные комплектующие составляет 1 год.
+              Состояние товара фиксируется в карточке и подтверждается в заявке.
             </p>
           </article>
           <article class="service-card">
             <span class="service-index">04</span>
-            <h3>SEO</h3>
+            <h3>Реквизиты</h3>
             <p>
-              В прототипе заложены ЧПУ-якоря, хлебные крошки, мета-теги, robots.txt
-              и sitemap.xml.
+              ИНН 6623147210<br />
+              ОГРН 662301001<br />
+              Город: Нижний Тагил
             </p>
           </article>
         </div>
@@ -338,11 +339,32 @@
         <div>
           <p class="eyebrow">Контакты</p>
           <h2 id="contactsTitle">Связаться с отделом продаж</h2>
-          <p>
-            Телефон: <a href="tel:+73430000000">+7 (343) 000-00-00</a><br />
-            Email: <a href="mailto:sales@example.ru">sales@example.ru</a><br />
-            Адрес: Нижний Тагил, офис и склад будут указаны после запуска.
-          </p>
+          <div class="contact-details" aria-label="Контактная информация и условия работы">
+            <div class="contact-row">
+              <span>Город</span>
+              <strong>Нижний Тагил</strong>
+            </div>
+            <div class="contact-row">
+              <span>Режим работы</span>
+              <strong>09:00 - 18:00 мск</strong>
+            </div>
+            <div class="contact-row">
+              <span>Доставка</span>
+              <strong>СДЭК до ПВЗ или курьером</strong>
+            </div>
+            <div class="contact-row">
+              <span>Оплата</span>
+              <strong>При получении в ПВЗ или безналичный расчет</strong>
+            </div>
+            <div class="contact-row">
+              <span>Гарантия</span>
+              <strong>1 год</strong>
+            </div>
+            <div class="requisites-card">
+              <span>Реквизиты</span>
+              <p>ИНН 6623147210 · ОГРН 662301001</p>
+            </div>
+          </div>
         </div>
         <form class="contact-form" id="contactForm">
           <label>
