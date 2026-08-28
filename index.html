@@ -14,8 +14,8 @@
       content="Интерактивный каталог серверных комплектующих с фильтрами, корзиной-заявкой, мини-кабинетом и импортом CSV."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="assets/specserver-bg-01-dark-server-room.png" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta property="og:image" content="assets/server-components-hero-1280.webp" />
+    <link rel="stylesheet" href="styles.css?v=20260829-network-live" />
   </head>
   <body>
     <a class="skip-link" href="#catalog">Перейти к каталогу</a>
@@ -23,7 +23,7 @@
     <header class="site-header">
       <a class="brand" href="#home" aria-label="SpecServer Components">
         <span class="brand-logo-wrap" aria-hidden="true">
-          <img src="assets/specserver-bg-01-dark-server-room.png" alt="" />
+          <img src="assets/specserver-logo.webp" alt="" width="52" height="52" />
         </span>
         <span class="brand-text">
           <strong>SpecServer</strong>
@@ -38,6 +38,11 @@
         <a href="#contacts">Контакты</a>
       </nav>
 
+      <a class="mobile-catalog-button" href="#catalog">
+        <span>Каталог</span>
+        <small>/ поиск</small>
+      </a>
+
       <div class="header-actions">
         <button class="ghost-button" type="button" id="accountButton">Кабинет</button>
         <button class="ghost-button" type="button" id="favoritesButton">
@@ -46,17 +51,154 @@
         <button class="primary-button" type="button" id="cartButton">
           Корзина <span class="count-pill strong" id="cartCount">0</span>
         </button>
+        <button
+          class="mobile-menu-button"
+          type="button"
+          id="mobileMenuButton"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="mobileMenuPanel"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="mobile-menu-panel" id="mobileMenuPanel" hidden>
+        <a class="mobile-menu-link manager-nav-link hidden" href="#admin" id="mobileAdminNavLink">Админка</a>
+        <a class="mobile-menu-link" href="#delivery">Доставка</a>
+        <a class="mobile-menu-link" href="#contacts">Контакты</a>
+        <button class="mobile-menu-action" type="button" id="mobileAccountButton">Кабинет</button>
+        <button class="mobile-menu-action" type="button" id="mobileFavoritesButton">
+          Избранное <span class="count-pill" id="mobileFavoritesCount">0</span>
+        </button>
       </div>
     </header>
 
     <main id="home">
       <section class="hero" aria-labelledby="heroTitle">
-        <img
-          class="hero-media"
-          src="assets/server-components-hero.png"
-          alt="Серверы, трансиверы, оптические патч-корды и сетевые адаптеры на рабочем столе"
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcset="assets/server-components-hero-1280.avif 1280w, assets/server-components-hero-1920.avif 1920w"
+            sizes="100vw"
+          />
+          <source
+            type="image/webp"
+            srcset="assets/server-components-hero-1280.webp 1280w, assets/server-components-hero-1920.webp 1920w"
+            sizes="100vw"
+          />
+          <img
+            class="hero-media"
+            src="assets/server-components-hero-1280.webp"
+            fetchpriority="high"
+            decoding="async"
+            alt="Серверы, трансиверы, оптические патч-корды и сетевые адаптеры на рабочем столе"
+          />
+        </picture>
         <div class="hero-shade" aria-hidden="true"></div>
+        <div class="network-animation" aria-hidden="true">
+          <svg
+            class="network-cables"
+            viewBox="0 0 1600 900"
+            preserveAspectRatio="none"
+            focusable="false"
+          >
+            <defs>
+              <filter id="signalGlow" x="-20%" y="-40%" width="140%" height="180%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <linearGradient id="fiberCable" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.05" />
+                <stop offset="42%" stop-color="#22d3ee" stop-opacity="0.68" />
+                <stop offset="100%" stop-color="#22c55e" stop-opacity="0.28" />
+              </linearGradient>
+              <linearGradient id="copperCable" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.08" />
+                <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.5" />
+                <stop offset="100%" stop-color="#10b981" stop-opacity="0.22" />
+              </linearGradient>
+            </defs>
+
+            <g class="cable-layer">
+              <path
+                class="cable-shadow"
+                d="M 36 624 C 168 596 267 612 376 652 C 508 701 610 640 736 582 C 853 528 937 531 1038 577 C 1146 626 1212 657 1317 538"
+              />
+              <path
+                class="cable-line cable-line-fiber"
+                d="M 36 624 C 168 596 267 612 376 652 C 508 701 610 640 736 582 C 853 528 937 531 1038 577 C 1146 626 1212 657 1317 538"
+              />
+              <path
+                class="signal-flow signal-flow-a"
+                d="M 36 624 C 168 596 267 612 376 652 C 508 701 610 640 736 582 C 853 528 937 531 1038 577 C 1146 626 1212 657 1317 538"
+              />
+
+              <path
+                class="cable-shadow"
+                d="M 419 552 C 548 500 656 475 774 508 C 897 542 1021 482 1132 366 C 1217 278 1307 306 1416 302"
+              />
+              <path
+                class="cable-line cable-line-fiber cable-line-thin"
+                d="M 419 552 C 548 500 656 475 774 508 C 897 542 1021 482 1132 366 C 1217 278 1307 306 1416 302"
+              />
+              <path
+                class="signal-flow signal-flow-b"
+                d="M 419 552 C 548 500 656 475 774 508 C 897 542 1021 482 1132 366 C 1217 278 1307 306 1416 302"
+              />
+
+              <path
+                class="cable-line twisted-pair twisted-pair-a"
+                d="M 480 475 C 620 421 723 384 807 331 C 928 254 1074 239 1257 263"
+              />
+              <path
+                class="cable-line twisted-pair twisted-pair-b"
+                d="M 486 490 C 630 437 733 398 820 348 C 948 276 1084 260 1268 285"
+              />
+              <path
+                class="signal-flow signal-flow-c"
+                d="M 480 475 C 620 421 723 384 807 331 C 928 254 1074 239 1257 263"
+              />
+
+              <path
+                class="cable-shadow"
+                d="M 956 673 C 1038 596 1172 552 1318 594 C 1424 625 1516 602 1571 527"
+              />
+              <path
+                class="cable-line cable-line-copper"
+                d="M 956 673 C 1038 596 1172 552 1318 594 C 1424 625 1516 602 1571 527"
+              />
+              <path
+                class="signal-flow signal-flow-d"
+                d="M 956 673 C 1038 596 1172 552 1318 594 C 1424 625 1516 602 1571 527"
+              />
+
+              <g class="cable-plugs">
+                <circle cx="36" cy="624" r="5" />
+                <circle cx="1317" cy="538" r="6" />
+                <circle cx="1416" cy="302" r="5" />
+                <circle cx="1257" cy="263" r="5" />
+                <circle cx="1571" cy="527" r="5" />
+              </g>
+            </g>
+          </svg>
+          <span class="hero-led hero-led-server" style="--x: 34%; --y: 28%; --delay: 0.1s"></span>
+          <span class="hero-led hero-led-server" style="--x: 36.6%; --y: 28.6%; --delay: 0.8s"></span>
+          <span class="hero-led hero-led-server" style="--x: 34.7%; --y: 48.2%; --delay: 1.4s"></span>
+          <span class="hero-led hero-led-server" style="--x: 36.2%; --y: 49%; --delay: 0.5s"></span>
+          <span class="hero-led hero-led-switch" style="--x: 63.7%; --y: 22.2%; --delay: 1.1s"></span>
+          <span class="hero-led hero-led-switch" style="--x: 77.3%; --y: 19.8%; --delay: 0.3s"></span>
+          <span class="hero-led hero-led-switch hero-led-blue" style="--x: 73%; --y: 32.6%; --delay: 1.8s"></span>
+          <span class="hero-led hero-led-switch" style="--x: 81.4%; --y: 34.7%; --delay: 0.7s"></span>
+          <span class="hero-led hero-led-port" style="--x: 69.6%; --y: 33.4%; --delay: 1.25s"></span>
+          <span class="hero-led hero-led-port" style="--x: 71.3%; --y: 33.8%; --delay: 0.2s"></span>
+          <span class="hero-led hero-led-port" style="--x: 75%; --y: 33.2%; --delay: 1.6s"></span>
+        </div>
         <div class="hero-content">
           <p class="eyebrow">B2B/B2C каталог комплектующих с ценами с НДС</p>
           <h1 id="heroTitle">SpecServer Components</h1>
@@ -367,6 +509,10 @@
           </div>
         </div>
         <form class="contact-form" id="contactForm">
+          <div class="form-next-step">
+            <strong>Ответим в течение 2 рабочих часов</strong>
+            <span>Передадим сообщение менеджеру, уточнения отправим по указанному контакту.</span>
+          </div>
           <label>
             <span>Имя</span>
             <input class="input" name="name" required />
@@ -378,6 +524,10 @@
           <label>
             <span>Сообщение</span>
             <textarea class="input textarea" name="message" rows="4" required></textarea>
+          </label>
+          <label class="consent-check">
+            <input type="checkbox" name="consent" required />
+            <span>Даю согласие на обработку персональных данных</span>
           </label>
           <button class="primary-button" type="submit">Отправить сообщение</button>
         </form>
@@ -416,17 +566,21 @@
       </form>
       <form class="dialog-body lead-form" id="leadForm">
         <div id="leadProductSummary" class="lead-product"></div>
+        <div class="form-next-step" id="leadNextSteps">
+          <strong>КП отправим на email</strong>
+          <span>Ответим в течение 2 рабочих часов; если оставлен телефон, менеджер уточнит email для КП.</span>
+        </div>
         <label>
           <span>Имя</span>
           <input class="input" name="name" required />
         </label>
         <label>
           <span>Телефон</span>
-          <input class="input" name="phone" required />
+          <input class="input" name="phone" autocomplete="tel" placeholder="Можно указать телефон или email" />
         </label>
         <label>
-          <span>Email</span>
-          <input class="input" name="email" type="email" required />
+          <span>Email для КП</span>
+          <input class="input" name="email" type="email" autocomplete="email" placeholder="Достаточно одного контакта" />
         </label>
         <label>
           <span>Компания</span>
@@ -458,6 +612,6 @@
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js" defer></script>
+    <script src="app.js?v=20260829-network-live" defer></script>
   </body>
 </html>

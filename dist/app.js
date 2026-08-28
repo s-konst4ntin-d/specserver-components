@@ -11,9 +11,78 @@
     managerAccess: "vmz.managerAccess.v1",
   };
 
-  const CATALOG_SEED_VERSION = "2026-08-28-avito-67";
-  const heroImage = "assets/server-components-hero.png";
+  const CATALOG_SEED_VERSION = "2026-08-29-site-product-images-v2";
+  const heroImage = "assets/server-components-hero-1280.webp";
   const productImagePath = "assets/product-images/";
+  const productImageMap = {
+    "LR-SLLP-100": ["site-lr-sllp-100.webp"],
+    "BY-LR-SLLP-100": ["site-lr-sllp-100-bu.webp"],
+    "LR-SLLP-80": ["site-lr-sllp-80.webp"],
+    "LR-SLLP-70": ["site-lr-sllp-80.webp"],
+    "LR-SLLP-60": ["site-lr-sllp-generic.webp"],
+    "BY-LR-SL-100": ["site-lr-sl-100-bu.webp"],
+    "BY-LR-SL-80": ["site-lr-sl-80-bu.webp"],
+    "LR-MC-80": ["site-lr-mcio-80.webp"],
+    "LR-MCU2-80": ["site-lr-mcio-u2-80.webp"],
+    "LR-SLU2-60": ["site-lr-slu2-60.webp"],
+    "LR-AD-MC-G5": ["site-lr-ad-mc-g5.webp"],
+    "10GT-AD-MC-G5": ["site-10gt-ad-mc-g5.webp"],
+    "LR-AD-4SL-G4": ["site-lr-ad-4sl-g4.webp"],
+    "LR-AD-SL-G4": ["site-lr-ad-sl-g4.webp"],
+    "10GT-SLLP-100": ["site-10gt-sllp-100.webp"],
+    "BY-10GT-SLLP-100": ["site-10gt-sllp-100.webp"],
+    "BY-10GT-SLLP-80": ["site-10gt-sllp-80.webp"],
+    "BY-10GT-SLLP-70": ["site-10gt-sllp-70.webp"],
+    "BY-10GT-SLLP-60": ["site-10gt-sllp-70.webp"],
+    "BY-10GT-SL-75": ["site-10gt-sllp-70.webp"],
+    "10GT-SL-75": ["site-10gt-sllp-70.webp"],
+    "BY-10GT-SL-70": ["site-10gt-sllp-70.webp"],
+    "10GT-SL-70": ["site-10gt-sllp-70.webp"],
+    "10GT-SL-60": ["site-10gt-sllp-70.webp"],
+    "10GT-MC-80": ["site-10gt-mcio-80.webp"],
+    "10GT-MCU2-80": ["site-10gt-mcio-u2-80.webp"],
+    "OEM-SL-50": ["site-lr-sl-80.webp"],
+    "OEM-SLLP-50": ["site-lr-sllp-generic.webp"],
+    "OEM-MCSL-50": ["site-lr-mcio-80.webp"],
+    "OEM-MCSL-40": ["site-lr-mcio-80.webp"],
+    "OEM-MC-50": ["site-10gt-mcio-80.webp"],
+    "RZ-100": ["site-rz-100.webp"],
+    "RZ-60": ["site-rz-60.webp"],
+    "RZ-40": ["site-rz-40.webp"],
+    "BIF-SL-G4": ["site-bif-sl-g4-1.webp", "site-bif-sl-g4-2.webp"],
+    "10GT-XL-10G-4S": ["site-xl710-10g-4s-1.webp", "site-xl710-10g-4s-2.webp"],
+    "BY-MELL-CX-25G": ["site-cx4121a-25gbe-1.webp", "site-cx4121a-25gbe-2.webp"],
+    "SSD-CRUC-250GB": ["site-ssd-cruc-mx500-250.webp"],
+    "SSD-CRUC-1TB": ["site-ssd-cruc-mx500-1tb.webp"],
+    "SSD-SAMS-250GB": ["site-ssd-samsung-870-250.webp"],
+    "SSD-SAMS-500GB": ["site-ssd-samsung-980-500.webp"],
+    "SSD-MSI-4TB": ["site-ssd-msi-4tb.webp"],
+    "SSD-KING-4TB": ["site-ssd-kingston-4tb.webp"],
+    "HDD-SKY-14TB": ["site-hdd-skyhawk-14tb.webp"],
+    "SFP-MIG-10G": ["site-sfp-mig-10g.webp"],
+    "SFP-FIBO-1G": ["site-sfp-fibo-rj45.webp"],
+    "SFP-LR-RJ45": ["site-sfp-lr-rj45.webp"],
+    "SFP-FIBO-RJ45": ["site-sfp-fibo-rj45.webp"],
+    "SFP-LR-10G": ["site-sfp-lr-10g.webp"],
+    "XFP-CISCO-10G": ["site-xfp-cisco-10g-1.webp", "cisco-xfp-10g-2.webp", "cisco-xfp-10g-3.webp", "cisco-xfp-10g-4.webp"],
+    "SFP-LR-T4-25G": ["site-sfp-lr-t4-25g.webp"],
+    "SFP-LR-T8-25G": ["site-sfp-lr-t8-25g.webp"],
+    "SFP-10GT-25G": ["site-sfp-10gt-25g.webp"],
+    "QSFP-MIKR-100G": ["site-qsfp-mikr-100g.webp"],
+    "QSFP-LR-100G": ["site-qsfp-lr-100g.webp"],
+    "OPTI-100G-1M": ["site-opti-100g-1m.webp"],
+    "OPTI-100G-2M": ["site-opti-100g-2m.webp"],
+    "OPTI-100G-20M": ["site-opti-100g-20m.webp"],
+    "OPTI-100G-100M": ["site-opti-100g-30m.webp"],
+    "CON-MIC-HI": ["site-micro-hi.webp"],
+    "CON-12-VH": ["site-12vhpwr.webp"],
+    "VENT-SNOW-1505": ["site-vent-snow-1505.webp"],
+    "VENT-RDK-150": ["site-vent-rdk-150.webp"],
+    "VENT-YD-1203": ["site-vent-yd-1203.webp"],
+    "VENT-RDK-1203": ["site-vent-rdk-1203.webp"],
+    "VENT-DC-QWE12": ["site-vent-dc-qwe12.webp"],
+    "VENT-SNOW-1203": ["site-vent-snow-1203.webp"],
+  };
 
   const defaultProducts = [
     {
@@ -577,6 +646,7 @@
     pagination: $("#pagination"),
     cartCount: $("#cartCount"),
     favoritesCount: $("#favoritesCount"),
+    mobileFavoritesCount: $("#mobileFavoritesCount"),
     cartDialog: $("#cartDialog"),
     cartBody: $("#cartBody"),
     productDialog: $("#productDialog"),
@@ -588,10 +658,16 @@
     leadTitle: $("#leadTitle"),
     leadEyebrow: $("#leadEyebrow"),
     leadProductSummary: $("#leadProductSummary"),
+    leadNextSteps: $("#leadNextSteps"),
     accountDialog: $("#accountDialog"),
     accountBody: $("#accountBody"),
     adminSection: $("#admin"),
     adminNavLink: $("#adminNavLink"),
+    mobileAdminNavLink: $("#mobileAdminNavLink"),
+    mobileMenuButton: $("#mobileMenuButton"),
+    mobileMenuPanel: $("#mobileMenuPanel"),
+    mobileAccountButton: $("#mobileAccountButton"),
+    mobileFavoritesButton: $("#mobileFavoritesButton"),
     toast: $("#toast"),
     csvText: $("#csvText"),
     csvFile: $("#csvFile"),
@@ -637,6 +713,7 @@
   function createRequestedProduct(rawName, index) {
     const name = rawName.replace(/\s+/g, " ").trim();
     const lower = normalize(name);
+    const sku = `SSC-${String(index + 1).padStart(3, "0")}`;
     const category = inferCategory(lower);
     const brand = inferBrand(lower);
     const type = inferType(lower, category);
@@ -647,13 +724,13 @@
     const capacity = category === "Накопители" ? sizeValue : "";
     const connector = inferConnector(lower, category);
     const condition = lower.startsWith("б/у") ? "Б/У" : "Новый";
-    const photo = imageForRequestedProduct(lower);
+    const photo = imageForSku(sku) || imageForRequestedProduct(lower);
 
     return {
       id: `vmz-added-${String(index + 1).padStart(3, "0")}`,
       category,
       name,
-      sku: `SSC-${String(index + 1).padStart(3, "0")}`,
+      sku,
       brand,
       type,
       interface: interfaceValue,
@@ -669,7 +746,12 @@
       status: "request",
       thumbPosition: photo.position || thumbPositionForCategory(category),
       ...(photo.src ? { image: photo.src, imagePosition: photo.position } : {}),
-      description: `${name}. Позиция добавлена в каталог серверных комплектующих; цена, наличие и срок поставки уточняются менеджером.`,
+      ...(photo.gallery ? { images: photo.gallery } : {}),
+      description: buildClientProductDescription({
+        stockQty: null,
+        price: null,
+        compatibility: inferCompatibility(category, lower),
+      }),
       specs: {
         Производитель: brand,
         Тип: type,
@@ -701,9 +783,10 @@
     const connector = inferConnector(lower, groupCategory);
     const compatibility = inferCompatibility(groupCategory, lower);
     const stockQty = Number(rawStock);
-    const price = Number(String(rawPrice ?? "").replace(/\s/g, "").replace(",", "."));
-    const numericPrice = Number.isFinite(price) ? price : null;
-    const photo = imageForRequestedProduct(lower);
+    const priceSource = String(rawPrice ?? "").replace(/\s/g, "").replace(",", ".");
+    const price = Number(priceSource);
+    const numericPrice = priceSource !== "" && Number.isFinite(price) ? price : null;
+    const photo = imageForSku(sku) || imageForRequestedProduct(lower);
 
     return {
       id: `avito-${slugifyId(sku || name, index)}`,
@@ -725,13 +808,15 @@
       status: numericPrice !== null && Number.isFinite(stockQty) && stockQty > 0 ? "cart" : "request",
       thumbPosition: photo.position || thumbPositionForCategory(groupCategory),
       ...(photo.src ? { image: photo.src, imagePosition: photo.position } : {}),
+      ...(photo.gallery ? { images: photo.gallery } : {}),
       priceBadge: "+22%",
-      description: `${name}. Остаток по файлу: ${Number.isFinite(stockQty) ? `${stockQty} шт.` : "уточняется"}. Цена указана по колонке "Цена на авито"; поставку подтверждает менеджер.`,
+      description: buildClientProductDescription({ stockQty, price: numericPrice, compatibility }),
       specs: {
         "Категория": category,
-        "Тип товара из Excel": excelType,
-        "Остаток": Number.isFinite(stockQty) ? `${stockQty} шт.` : "Уточняется",
-        "Цена на авито": numericPrice === null ? "Цена по запросу" : formatPrice(numericPrice),
+        "Состояние товара": excelType,
+        "Цена с НДС": numericPrice === null ? "По запросу" : formatPrice(numericPrice),
+        Гарантия: "1 год",
+        "Срок подтверждения": "перед выставлением счета",
         Производитель: brand,
         Тип: type,
         Интерфейс: interfaceValue,
@@ -741,6 +826,18 @@
         Разъем: connector,
       },
     };
+  }
+
+  function buildClientProductDescription({ stockQty, price, compatibility }) {
+    const hasStock = Number.isFinite(stockQty) && stockQty > 0;
+    const stockText = hasStock ? `В наличии ${stockQty} шт.` : "Наличие уточняется по запросу.";
+    const hasPrice = price !== null && price !== "" && Number.isFinite(Number(price));
+    const priceText = hasPrice ? "Цена указана с НДС." : "Цена по запросу.";
+    const compatibilityText = Array.isArray(compatibility) && compatibility.length
+      ? `Совместимость: ${compatibility.slice(0, 3).join(", ")}.`
+      : "Совместимость проверяется по серверу или партномеру.";
+
+    return `${stockText} ${priceText} Срок отгрузки подтверждается менеджером перед счетом. Гарантия 1 год. ${compatibilityText}`;
   }
 
   function avitoCategoryGroup(category) {
@@ -773,20 +870,41 @@
   }
 
   function imageForRequestedProduct(lower) {
-    if (/ssd crucial mx500 250gb/.test(lower)) return productPhoto("crucial-mx500-250gb.png");
-    if (/ssd crucial mx500 1tb/.test(lower)) return productPhoto("crucial-mx500-box.png");
-    if (/ssd 870 evo 250gb/.test(lower)) return productPhoto("samsung-870-evo-250gb.png");
-    if (/ssd samsung 980 500gb/.test(lower)) return productPhoto("samsung-980-500gb.png");
-    if (/ssd msi spatium m480pro 4tb/.test(lower)) return productPhoto("msi-spatium-m480pro-4tb.png");
-    if (/ssd kingston fury 4tb/.test(lower)) return productPhoto("kingston-fury-4tb.png");
-    if (/hdd seagate skyhawk ai 14tb/.test(lower)) return productPhoto("seagate-skyhawk-ai-14tb.png");
-    if (/12vhpwr/.test(lower)) return productPhoto("12vhpwr-600w-5090.png");
-    if (/lr-slu2-60|8i gen4 to u2|sff-6639/.test(lower)) return productPhoto("0.6 lr-link u2.png");
+    if (/cisco.*xfp|xfp.*cisco|xfp-?10gmm-?sr|xfp-cisco-10g/.test(lower)) return productGallery("cisco-xfp-10g", 4, "webp");
+    if (/ssd crucial mx500 250gb/.test(lower)) return productPhoto("crucial-mx500-250gb.webp");
+    if (/ssd crucial mx500 1tb/.test(lower)) return productPhoto("crucial-mx500-box.webp");
+    if (/ssd 870 evo 250gb/.test(lower)) return productPhoto("samsung-870-evo-250gb.webp");
+    if (/ssd samsung 980 500gb/.test(lower)) return productPhoto("samsung-980-500gb.webp");
+    if (/ssd msi spatium m480pro 4tb/.test(lower)) return productPhoto("msi-spatium-m480pro-4tb.webp");
+    if (/ssd kingston fury 4tb/.test(lower)) return productPhoto("kingston-fury-4tb.webp");
+    if (/hdd seagate skyhawk ai 14tb/.test(lower)) return productPhoto("seagate-skyhawk-ai-14tb.webp");
+    if (/12vhpwr/.test(lower)) return productPhoto("12vhpwr-600w-5090.webp");
+    if (/lr-slu2-60|8i gen4 to u2|sff-6639/.test(lower)) return productPhoto("0.6 lr-link u2.webp");
     if (/4 port slimsas|pcie 2 ports slimsas adapter|lrfcf931/.test(lower)) {
-      return productPhoto("slimsas-adapter-front.png");
+      return productPhoto("slimsas-adapter-front.webp");
     }
-    if (/lrfna921a|sa22n216p|lrfcf921/.test(lower)) return productPhoto("slimsas-adapter-back.png");
+    if (/lrfna921a|sa22n216p|lrfcf921/.test(lower)) return productPhoto("slimsas-adapter-back.webp");
     return {};
+  }
+
+  function imageForSku(sku) {
+    const files = productImageMap[sku];
+    if (!files?.length) return null;
+    const gallery = files.map((file) => `${productImagePath}${file}`);
+    return {
+      src: gallery[0],
+      position: "center",
+      ...(gallery.length > 1 ? { gallery } : {}),
+    };
+  }
+
+  function productGallery(slug, count, extension = "jpg", position = "center") {
+    const gallery = Array.from({ length: count }, (_, index) => `${productImagePath}${slug}-${index + 1}.${extension}`);
+    return {
+      src: gallery[0],
+      position,
+      gallery,
+    };
   }
 
   function productPhoto(fileName, position = "center") {
@@ -801,6 +919,16 @@
     if (next.brand === "VMZ") next.brand = "SpecServer";
     if (typeof next.sku === "string") {
       next.sku = next.sku.replaceAll("-VMZ", "-SPEC").replace(/^VMZ-/, "SSC-");
+    }
+    const photo = imageForSku(next.sku);
+    if (photo?.src) {
+      next.image = photo.src;
+      next.imagePosition = photo.position;
+      if (photo.gallery) {
+        next.images = photo.gallery;
+      } else {
+        delete next.images;
+      }
     }
     return next;
   }
@@ -1155,6 +1283,7 @@
     refs.adminSection.classList.toggle("hidden", !visible);
     refs.adminSection.setAttribute("aria-hidden", String(!visible));
     refs.adminNavLink.classList.toggle("hidden", !visible);
+    refs.mobileAdminNavLink?.classList.toggle("hidden", !visible);
     if (!visible && window.location.hash === "#admin") {
       history.replaceState(null, "", "#catalog");
     }
@@ -1270,14 +1399,19 @@
     const favorite = favorites.has(product.id);
     const addDisabled = canAddToCart(product) ? "" : "disabled";
     const addLabel = canAddToCart(product) ? "В корзину" : "Через КП";
-    const imageSrc = product.image || heroImage;
-    const imagePosition = product.imagePosition || product.thumbPosition || "center";
-    const thumbClass = product.image ? "product-thumb has-product-photo" : "product-thumb";
+    const galleryProduct = hasProductGallery(product);
+    const image = productImageList(product)[0];
+    const specificImage = hasSpecificProductImage(product);
+    const thumbClass = [
+      "product-thumb",
+      specificImage ? "has-product-photo" : "",
+      galleryProduct ? "has-readable-card-image" : "",
+    ].filter(Boolean).join(" ");
     return `
       <article class="product-card" data-product-id="${escapeAttr(product.id)}">
         <div class="${thumbClass}">
-          <img src="${escapeAttr(imageSrc)}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(imagePosition)}" loading="lazy" />
-          <span class="thumb-label">${escapeHTML(product.type)} / ${escapeHTML(product.speed)}</span>
+          <img src="${escapeAttr(image.src)}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(image.position)}" loading="lazy" />
+          ${galleryProduct ? "" : `<span class="thumb-label">${escapeHTML(product.type)} / ${escapeHTML(product.speed)}</span>`}
           <button class="favorite-toggle" type="button" aria-label="${favorite ? "Убрать из избранного" : "Добавить в избранное"}" aria-pressed="${favorite}" data-action="favorite" data-id="${escapeAttr(product.id)}">${favorite ? "✓" : "+"}</button>
         </div>
         <div class="product-body">
@@ -1333,6 +1467,19 @@
   function renderCounters() {
     refs.cartCount.textContent = String(cart.reduce((sum, item) => sum + item.qty, 0));
     refs.favoritesCount.textContent = String(favorites.size);
+    if (refs.mobileFavoritesCount) refs.mobileFavoritesCount.textContent = String(favorites.size);
+  }
+
+  function setMobileMenu(open) {
+    if (!refs.mobileMenuButton || !refs.mobileMenuPanel) return;
+    document.querySelector(".site-header")?.classList.toggle("mobile-menu-open", open);
+    refs.mobileMenuPanel.hidden = !open;
+    refs.mobileMenuButton.setAttribute("aria-expanded", String(open));
+    refs.mobileMenuButton.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+  }
+
+  function closeMobileMenu() {
+    setMobileMenu(false);
   }
 
   function renderCart() {
@@ -1373,6 +1520,10 @@
       <div class="cart-summary">
         <strong>Итого ориентировочно: ${formatPrice(cartTotal())}</strong>
         <p class="muted">Финальная цена, наличие и срок поставки подтверждаются менеджером.</p>
+        <div class="form-next-step">
+          <strong>Ответим в течение 2 рабочих часов</strong>
+          <span>Проверим остатки, подтвердим цену с НДС и отправим КП или счет на email.</span>
+        </div>
       </div>
       <form class="checkout-form" id="checkoutForm">
         ${customerFields()}
@@ -1387,9 +1538,15 @@
   }
 
   function renderProductDialog(product) {
-    const imageSrc = product.image || heroImage;
-    const imagePosition = product.imagePosition || product.thumbPosition || "center";
-    const imageClass = product.image ? "detail-image has-product-photo" : "detail-image";
+    const images = productImageList(product);
+    const mainImage = images[0];
+    const galleryProduct = hasProductGallery(product);
+    const specificImage = hasSpecificProductImage(product);
+    const imageClass = [
+      "detail-image",
+      specificImage ? "has-product-photo" : "",
+      galleryProduct ? "has-readable-card-image" : "",
+    ].filter(Boolean).join(" ");
     refs.productDialogTitle.textContent = product.name;
     refs.productBreadcrumb.textContent = `Каталог / ${product.category} / ${product.sku}`;
     const specs = {
@@ -1406,8 +1563,32 @@
     };
     refs.productDialogBody.innerHTML = `
       <div class="product-detail-grid">
-        <div class="${imageClass}">
-          <img src="${escapeAttr(imageSrc)}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(imagePosition)}" />
+        <div class="product-gallery">
+          <div class="${imageClass}">
+            <img data-gallery-main src="${escapeAttr(mainImage.src)}" alt="${escapeAttr(product.name)}" style="object-position:${escapeAttr(mainImage.position)}" />
+            ${
+              images.length > 1
+                ? `
+                  <button class="gallery-nav prev" type="button" data-gallery-step="-1" aria-label="Предыдущее изображение">‹</button>
+                  <button class="gallery-nav next" type="button" data-gallery-step="1" aria-label="Следующее изображение">›</button>`
+                : ""
+            }
+          </div>
+          ${
+            images.length > 1
+              ? `
+                <div class="gallery-strip" aria-label="Изображения товара">
+                  ${images
+                    .map(
+                      (image, index) => `
+                        <button class="gallery-thumb" type="button" data-gallery-index="${index}" data-gallery-image="${escapeAttr(image.src)}" data-gallery-position="${escapeAttr(image.position)}" aria-label="Показать изображение ${index + 1}" aria-current="${index === 0 ? "true" : "false"}">
+                          <img src="${escapeAttr(image.src)}" alt="" loading="lazy" />
+                        </button>`
+                    )
+                    .join("")}
+                </div>`
+              : ""
+          }
         </div>
         <div>
           <div class="product-meta">
@@ -1437,6 +1618,51 @@
       </table>`;
   }
 
+  function productImageList(product) {
+    const mappedPhoto = imageForSku(product.sku);
+    const fallbackPosition = mappedPhoto?.position || product.imagePosition || product.thumbPosition || "center";
+    const mappedImages = mappedPhoto?.gallery || (mappedPhoto?.src ? [mappedPhoto.src] : null);
+    const rawImages = mappedImages || (Array.isArray(product.images) && product.images.length
+      ? product.images
+      : [product.image || heroImage]);
+    return rawImages.map((item) => {
+      if (typeof item === "string") return { src: item, position: fallbackPosition };
+      return {
+        src: item.src || heroImage,
+        position: item.position || fallbackPosition,
+      };
+    });
+  }
+
+  function hasSpecificProductImage(product) {
+    return Boolean(imageForSku(product.sku)?.src || product.image);
+  }
+
+  function hasProductGallery(product) {
+    const mappedPhoto = imageForSku(product.sku);
+    if (mappedPhoto?.gallery?.length) return mappedPhoto.gallery.length > 1;
+    return Array.isArray(product.images) && product.images.length > 1;
+  }
+
+  function updateProductGallery(control) {
+    const gallery = control.closest(".product-gallery");
+    if (!gallery) return;
+    const thumbs = [...gallery.querySelectorAll(".gallery-thumb")];
+    if (!thumbs.length) return;
+
+    const currentIndex = Math.max(0, thumbs.findIndex((thumb) => thumb.getAttribute("aria-current") === "true"));
+    const targetIndex = control.dataset.galleryIndex !== undefined
+      ? Number(control.dataset.galleryIndex)
+      : (currentIndex + Number(control.dataset.galleryStep || 0) + thumbs.length) % thumbs.length;
+    const target = thumbs[targetIndex];
+    const mainImage = gallery.querySelector("[data-gallery-main]");
+    if (!target || !mainImage) return;
+
+    mainImage.src = target.dataset.galleryImage;
+    mainImage.style.objectPosition = target.dataset.galleryPosition || "center";
+    thumbs.forEach((thumb, index) => thumb.setAttribute("aria-current", String(index === targetIndex)));
+  }
+
   function renderLeadDialog(type, productId = null, items = []) {
     state.leadContext = { type, productId, items };
     const product = productId ? findProduct(productId) : null;
@@ -1445,6 +1671,9 @@
     refs.leadProductSummary.innerHTML = product
       ? `<strong>${escapeHTML(product.name)}</strong><p class="product-sku">${escapeHTML(product.sku)}</p>`
       : `<strong>Подбор по списку</strong><p class="muted">Менеджер получит комментарий и уточнит параметры.</p>`;
+    refs.leadNextSteps.innerHTML = type === "question"
+      ? `<strong>Ответим в течение 2 рабочих часов</strong><span>Менеджер проверит совместимость, наличие и подскажет следующий шаг.</span>`
+      : `<strong>КП отправим на email</strong><span>Ответим в течение 2 рабочих часов; если оставлен телефон, менеджер уточнит email для КП.</span>`;
     refs.leadForm.reset();
     refs.leadForm.dataset.startedAt = String(Date.now());
     prefillCustomerForm(refs.leadForm);
@@ -1607,6 +1836,28 @@
     const startedAt = Number(form.dataset.startedAt || Date.now() - 1000);
     const honey = String(new FormData(form).get("website") || "");
     return Date.now() - startedAt > 450 && honey.length === 0;
+  }
+
+  function validateFlexibleContact(form) {
+    const phone = form.elements.phone;
+    const email = form.elements.email;
+    if (!phone || !email) return true;
+    const hasContact = phone.value.trim().length > 0 || email.value.trim().length > 0;
+    const message = hasContact ? "" : "Укажите телефон или email";
+    phone.setCustomValidity(message);
+    email.setCustomValidity(message);
+    if (!hasContact) {
+      phone.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
+  function clearFlexibleContactValidity(form) {
+    const phone = form.elements.phone;
+    const email = form.elements.email;
+    phone?.setCustomValidity("");
+    email?.setCustomValidity("");
   }
 
   function addToCart(productId, qty = 1) {
@@ -1975,6 +2226,12 @@
   });
 
   document.addEventListener("click", (event) => {
+    const galleryControl = event.target.closest("[data-gallery-step], [data-gallery-index]");
+    if (galleryControl) {
+      updateProductGallery(galleryControl);
+      return;
+    }
+
     const actionButton = event.target.closest("[data-action]");
     if (actionButton) {
       const action = actionButton.dataset.action;
@@ -1995,19 +2252,42 @@
     if (leadButton) openLead(leadButton.dataset.lead);
   });
 
-  $("#cartButton").addEventListener("click", () => {
+  function openCartDialog() {
     renderCart();
     openDialog(refs.cartDialog);
-  });
+  }
 
-  $("#favoritesButton").addEventListener("click", () => {
+  function openAccountDialog() {
     renderAccount();
     openDialog(refs.accountDialog);
+  }
+
+  $("#cartButton").addEventListener("click", openCartDialog);
+  $("#favoritesButton").addEventListener("click", openAccountDialog);
+  $("#accountButton").addEventListener("click", openAccountDialog);
+
+  refs.mobileMenuButton?.addEventListener("click", () => {
+    setMobileMenu(refs.mobileMenuPanel?.hidden !== false);
   });
 
-  $("#accountButton").addEventListener("click", () => {
-    renderAccount();
-    openDialog(refs.accountDialog);
+  refs.mobileMenuPanel?.addEventListener("click", (event) => {
+    if (event.target.closest("a")) closeMobileMenu();
+  });
+
+  refs.mobileAccountButton?.addEventListener("click", () => {
+    closeMobileMenu();
+    openAccountDialog();
+  });
+
+  refs.mobileFavoritesButton?.addEventListener("click", () => {
+    closeMobileMenu();
+    openAccountDialog();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (refs.mobileMenuPanel?.hidden !== false) return;
+    if (event.target.closest(".site-header")) return;
+    closeMobileMenu();
   });
 
   refs.cartBody.addEventListener("click", (event) => {
@@ -2036,6 +2316,7 @@
 
   refs.leadForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (!validateFlexibleContact(event.target)) return;
     if (!validateAntiSpam(event.target)) {
       showToast("Форма отклонена защитой от спама. Попробуйте еще раз.");
       return;
@@ -2049,6 +2330,9 @@
     showPayload(refs.leadForm, order);
     showToast(`${order.id} подготовлена для отправки менеджеру`);
   });
+
+  refs.leadForm.elements.phone.addEventListener("input", () => clearFlexibleContactValidity(refs.leadForm));
+  refs.leadForm.elements.email.addEventListener("input", () => clearFlexibleContactValidity(refs.leadForm));
 
   refs.accountBody.addEventListener("submit", (event) => {
     if (event.target.id !== "profileForm") return;
@@ -2112,6 +2396,10 @@
   $("#contactForm").addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    if (formData.get("consent") !== "on") {
+      showToast("Подтвердите согласие на обработку персональных данных");
+      return;
+    }
     const order = submitOrder(
       buildOrder(
         "Сообщение с сайта",
@@ -2217,6 +2505,7 @@
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
+    closeMobileMenu();
     for (const dialog of [refs.cartDialog, refs.productDialog, refs.leadDialog, refs.accountDialog]) {
       if (dialog.open) closeDialog(dialog);
     }

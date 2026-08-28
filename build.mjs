@@ -1,5 +1,5 @@
 import { copyFileSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(fileURLToPath(import.meta.url));
@@ -9,17 +9,47 @@ const assetsDir = join(dist, "assets");
 const productImagesDir = join(root, "assets", "product-images");
 const distProductImagesDir = join(assetsDir, "product-images");
 const openaiDir = join(dist, ".openai");
+const imageTypes = new Map([
+  [".png", "image/png"],
+  [".jpg", "image/jpeg"],
+  [".jpeg", "image/jpeg"],
+  [".webp", "image/webp"],
+  [".avif", "image/avif"],
+]);
 
 const readText = (file) => readFileSync(join(root, file), "utf8");
-const hero = readFileSync(join(root, "assets", "server-components-hero.png"));
-const brand = readFileSync(join(root, "assets", "specserver-bg-01-dark-server-room.png"));
-const productImages = readdirSync(productImagesDir)
-  .filter((file) => file.toLowerCase().endsWith(".png"))
+const siteImageFiles = [
+  "server-components-hero-1280.avif",
+  "server-components-hero-1920.avif",
+  "server-components-hero-1280.webp",
+  "server-components-hero-1920.webp",
+  "specserver-logo.webp",
+];
+const imageAsset = (route, type, filePath) => ({
+  route,
+  type,
+  data: readFileSync(filePath),
+});
+const productImageFiles = readdirSync(productImagesDir);
+const productImages = productImageFiles
+  .filter((file) => imageTypes.has(extname(file).toLowerCase()))
+  .filter((file) => {
+    const extension = extname(file).toLowerCase();
+    if (extension === ".webp") return true;
+    const webpName = `${file.slice(0, -extension.length)}.webp`;
+    return !productImageFiles.includes(webpName);
+  })
   .map((file) => ({
     file,
     route: `/assets/product-images/${file}`,
+    type: imageTypes.get(extname(file).toLowerCase()),
     data: readFileSync(join(productImagesDir, file)),
   }));
+const siteImages = siteImageFiles.map((file) => {
+  const extension = extname(file).toLowerCase();
+  return imageAsset(`/assets/${file}`, imageTypes.get(extension), join(root, "assets", file));
+});
+const imageAssets = [...siteImages, ...productImages];
 
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(serverDir, { recursive: true });
@@ -27,8 +57,9 @@ mkdirSync(assetsDir, { recursive: true });
 mkdirSync(distProductImagesDir, { recursive: true });
 mkdirSync(openaiDir, { recursive: true });
 
-copyFileSync(join(root, "assets", "server-components-hero.png"), join(assetsDir, "server-components-hero.png"));
-copyFileSync(join(root, "assets", "specserver-bg-01-dark-server-room.png"), join(assetsDir, "specserver-bg-01-dark-server-room.png"));
+for (const image of siteImageFiles) {
+  copyFileSync(join(root, "assets", image), join(assetsDir, image));
+}
 for (const image of productImages) {
   copyFileSync(join(productImagesDir, image.file), join(distProductImagesDir, image.file));
 }
@@ -42,10 +73,8 @@ const css = ${JSON.stringify(readText("styles.css"))};
 const js = ${JSON.stringify(readText("app.js"))};
 const robots = ${JSON.stringify(readText("robots.txt"))};
 const sitemapTemplate = ${JSON.stringify(readText("sitemap.xml"))};
-const heroBase64 = ${JSON.stringify(hero.toString("base64"))};
-const brandBase64 = ${JSON.stringify(brand.toString("base64"))};
-const productImageAssets = new Map(${JSON.stringify(
-  productImages.map((image) => [image.route, image.data.toString("base64")])
+const imageAssets = new Map(${JSON.stringify(
+  imageAssets.map((image) => [image.route, { type: image.type, data: image.data.toString("base64") }])
 )});
 
 function bytesFromBase64(value) {
@@ -85,9 +114,10 @@ export default {
     if (path === "/app.js") return textResponse(js, "application/javascript");
     if (path === "/robots.txt") return textResponse(robots.replaceAll("https://specserver-components.example", url.origin), "text/plain");
     if (path === "/sitemap.xml") return textResponse(sitemapTemplate.replaceAll("https://specserver-components.example", url.origin), "application/xml");
-    if (path === "/assets/server-components-hero.png") return binaryResponse(bytesFromBase64(heroBase64), "image/png");
-    if (path === "/assets/specserver-bg-01-dark-server-room.png") return binaryResponse(bytesFromBase64(brandBase64), "image/png");
-    if (productImageAssets.has(path)) return binaryResponse(bytesFromBase64(productImageAssets.get(path)), "image/png");
+    if (imageAssets.has(path)) {
+      const asset = imageAssets.get(path);
+      return binaryResponse(bytesFromBase64(asset.data), asset.type);
+    }
 
     return new Response("Страница не найдена", {
       status: 404,
