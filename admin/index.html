@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Рабочий кабинет | Белый Ветер</title>
+  <link rel="stylesheet" href="/admin/admin.css?v=20260903-admin-fixes">
+  <script defer src="/admin/lucide.js"></script>
+  <script defer src="/admin/catalog-tools.js?v=20260903-admin-fixes"></script>
+  <script defer src="/admin/admin.js?v=20260903-live-filters"></script>
+</head>
+<body>
+  <div class="workspace">
+    <aside class="sidebar">
+      <a class="brand" href="/"><img src="/assets/beliy-veter-logo.png" alt="Белый Ветер" width="154" height="62"></a>
+      <span class="sidebar-label">Рабочий кабинет</span>
+      <nav id="navigation" aria-label="Разделы кабинета">
+        <a href="#overview" data-route="overview"><i data-lucide="layout-dashboard"></i>Обзор</a>
+        <a href="#orders" data-route="orders"><i data-lucide="clipboard-list"></i>Заявки и КП</a>
+        <a href="#clients" data-route="clients"><i data-lucide="users"></i>Клиенты</a>
+        <a href="#catalog" data-route="catalog"><i data-lucide="package"></i>Каталог</a>
+        <a href="#notifications" data-route="notifications"><i data-lucide="bell"></i>Уведомления</a>
+        <a href="#audit" data-route="audit" data-admin-only><i data-lucide="shield-check"></i>Журнал действий</a>
+      </nav>
+      <a href="/" class="site-link"><i data-lucide="arrow-up-right"></i>Открыть сайт</a>
+    </aside>
+    <div class="main-column">
+      <header class="topbar">
+        <form id="searchForm" role="search"><i data-lucide="search"></i><input id="search" aria-label="Поиск по текущему разделу" placeholder="Поиск" type="search" maxlength="120"><button class="icon-button" aria-label="Найти" title="Найти"><i data-lucide="arrow-right"></i></button></form>
+        <div id="staffIdentity" class="identity"></div>
+        <button id="logout" class="icon-button" title="Выйти" aria-label="Выйти"><i data-lucide="log-out"></i></button>
+      </header>
+      <main id="main">
+        <div class="page-heading"><div><h1 id="pageTitle">Обзор</h1><small id="updatedAt"></small></div><button id="refresh" class="icon-button" aria-label="Обновить" title="Обновить"><i data-lucide="refresh-cw"></i></button></div>
+        <div id="notice" role="status" hidden></div>
+        <div id="toolbar"></div>
+        <div id="content" aria-live="polite"></div>
+        <div id="pagination"></div>
+      </main>
+    </div>
+  </div>
+  <dialog id="detailDialog" aria-labelledby="detailTitle">
+    <header class="dialog-header"><h2 id="detailTitle"></h2><button id="closeDetail" class="icon-button" aria-label="Закрыть" title="Закрыть"><i data-lucide="x"></i></button></header>
+    <div id="detailBody" class="dialog-body"></div>
+  </dialog>
+</body>
+</html>

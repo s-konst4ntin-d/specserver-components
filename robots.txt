@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://specserver-components.example/sitemap.xml
+Sitemap: https://beliy-veter.example/sitemap.xml

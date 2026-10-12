@@ -3,35 +3,32 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SpecServer Components — каталог серверных комплектующих</title>
+    <title>Белый Ветер — каталог серверных комплектующих</title>
     <meta
       name="description"
       content="B2B-каталог серверных комплектующих: трансиверы, кабели, адаптеры, оптические патч-корды и комплектующие с ценами с НДС."
     />
-    <meta property="og:title" content="SpecServer Components" />
+    <meta property="og:title" content="Белый Ветер" />
     <meta
       property="og:description"
       content="Интерактивный каталог серверных комплектующих с фильтрами, корзиной-заявкой, мини-кабинетом и импортом CSV."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/server-components-hero-1280.webp" />
-    <link rel="stylesheet" href="styles.css?v=20260829-network-live" />
+    <link rel="stylesheet" href="styles.css?v=20260903-card-actions" />
   </head>
   <body>
     <a class="skip-link" href="#catalog">Перейти к каталогу</a>
 
     <header class="site-header">
-      <a class="brand" href="#home" aria-label="SpecServer Components">
+      <a class="brand" href="#home" aria-label="Белый Ветер">
         <span class="brand-logo-wrap" aria-hidden="true">
-          <img src="assets/specserver-logo.webp" alt="" width="52" height="52" />
-        </span>
-        <span class="brand-text">
-          <strong>SpecServer</strong>
-          <small>Components</small>
+          <img src="assets/beliy-veter-logo.png" alt="" width="156" height="52" />
         </span>
       </a>
 
       <nav class="top-nav" aria-label="Основная навигация">
+        <a href="#about">О компании</a>
         <a href="#catalog">Каталог</a>
         <a class="manager-nav-link hidden" href="#admin" id="adminNavLink">Админка</a>
         <a href="#delivery">Доставка</a>
@@ -44,12 +41,34 @@
       </a>
 
       <div class="header-actions">
-        <button class="ghost-button" type="button" id="accountButton">Кабинет</button>
-        <button class="ghost-button" type="button" id="favoritesButton">
-          Избранное <span class="count-pill" id="favoritesCount">0</span>
+        <button class="header-icon-button" type="button" id="accountButton">
+          <span class="header-icon-shell" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M20 21a8 8 0 0 0-16 0" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </span>
+          <span class="header-action-label" id="accountLabel">Кабинет</span>
         </button>
-        <button class="primary-button" type="button" id="cartButton">
-          Корзина <span class="count-pill strong" id="cartCount">0</span>
+        <button class="header-icon-button" type="button" id="favoritesButton">
+          <span class="header-icon-shell" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+            </svg>
+            <span class="header-count-pill is-empty" id="favoritesCount">0</span>
+          </span>
+          <span class="header-action-label">Избранное</span>
+        </button>
+        <button class="header-icon-button header-cart-button" type="button" id="cartButton">
+          <span class="header-icon-shell" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <circle cx="8" cy="21" r="1" />
+              <circle cx="19" cy="21" r="1" />
+              <path d="M2.05 2.05h2l2.7 12.4a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6l1.35-7.4H5.12" />
+            </svg>
+            <span class="header-count-pill strong is-empty" id="cartCount">0</span>
+          </span>
+          <span class="header-action-label">Корзина</span>
         </button>
         <button
           class="mobile-menu-button"
@@ -66,6 +85,7 @@
       </div>
 
       <div class="mobile-menu-panel" id="mobileMenuPanel" hidden>
+        <a class="mobile-menu-link" href="#about">О компании</a>
         <a class="mobile-menu-link manager-nav-link hidden" href="#admin" id="mobileAdminNavLink">Админка</a>
         <a class="mobile-menu-link" href="#delivery">Доставка</a>
         <a class="mobile-menu-link" href="#contacts">Контакты</a>
@@ -200,12 +220,11 @@
           <span class="hero-led hero-led-port" style="--x: 75%; --y: 33.2%; --delay: 1.6s"></span>
         </div>
         <div class="hero-content">
-          <p class="eyebrow">B2B/B2C каталог комплектующих с ценами с НДС</p>
-          <h1 id="heroTitle">SpecServer Components</h1>
+          <p class="eyebrow">B2B-каталог серверных комплектующих</p>
+          <h1 id="heroTitle">Белый Ветер</h1>
           <p class="hero-copy">
-            Подберите кабели, адаптеры, трансиверы, оптические патч-корды и серверные
-            комплектующие без лишних шагов. Часть позиций можно добавить в корзину,
-            по остальным быстро отправить запрос КП.
+            Подберите трансиверы, адаптеры, кабели и оптические патч-корды по артикулу,
+            скорости порта или совместимости. Цены с НДС, корзина-заявка и быстрый запрос КП.
           </p>
 
           <form class="hero-search" id="heroSearchForm" role="search">
@@ -220,45 +239,62 @@
           </form>
 
           <div class="hero-actions" aria-label="Быстрые действия">
-            <a class="primary-link" href="#catalog">Открыть каталог</a>
-            <button class="secondary-button" type="button" data-lead="quote">
-              Запросить КП
+            <a class="primary-link hero-primary-cta" href="#catalog">Открыть каталог</a>
+            <button class="secondary-button hero-secondary-cta" type="button" data-lead="quote">
+              <span>Запросить КП</span>
+              <small>ответим за 24 ч</small>
             </button>
           </div>
 
-          <dl class="metric-strip" aria-label="Показатели сервиса">
-            <div>
-              <dt id="metricSku">0</dt>
-              <dd>демо SKU</dd>
-            </div>
-            <div>
-              <dt>НДС</dt>
-              <dd>в цене</dd>
-            </div>
-            <div>
-              <dt>CSV</dt>
-              <dd>импорт каталога</dd>
-            </div>
-            <div>
-              <dt>КП</dt>
-              <dd>заявка менеджеру</dd>
-            </div>
-          </dl>
+          <ul class="purchase-trust-strip" aria-label="Условия покупки">
+            <li>цены с НДС</li>
+            <li>Нижний Тагил</li>
+            <li>СДЕК</li>
+            <li>гарантия 1 год</li>
+            <li>КП за 24 ч</li>
+          </ul>
+
         </div>
       </section>
 
-      <section class="status-band" aria-label="Рабочие сценарии сайта">
-        <div>
-          <strong>Смешанная модель продаж</strong>
-          <span>корзина для позиций с ценой, запрос КП для сложных поставок</span>
+      <section class="about-section" id="about" aria-labelledby="aboutTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">О компании</p>
+            <h2 id="aboutTitle">Белый Ветер</h2>
+            <p>
+              ООО «Белый Ветер» поставляет серверное оборудование и комплектующие:
+              кабели SlimSAS, адаптеры PCIe, трансиверы и оптику. Собственный дата-центр
+              помогает нам точно понимать требования к надежности, совместимости и срокам поставки.
+            </p>
+          </div>
         </div>
-        <div>
-          <strong>Email + Telegram</strong>
-          <span>готовый сценарий уведомлений для серверной части</span>
-        </div>
-        <div>
-          <strong>Мини-кабинет</strong>
-          <span>реквизиты, избранное, история и повтор заявки</span>
+        <div class="about-layout">
+          <article class="about-lead-card">
+            <span class="service-index">01</span>
+            <h3>Комплектующие для серверной инфраструктуры</h3>
+            <p>
+              Работаем с задачей целиком: уточняем оборудование, сверяем артикулы,
+              проверяем остатки и заранее фиксируем условия отгрузки.
+            </p>
+          </article>
+          <div class="about-cards">
+            <article>
+              <span>Подбор</span>
+              <strong>По задаче и совместимости</strong>
+              <p>Менеджер уточняет модель оборудования, интерфейсы, длину, емкость и состояние товара.</p>
+            </article>
+            <article>
+              <span>Проверка</span>
+              <strong>Наличие подтверждается</strong>
+              <p>Перед счетом фиксируем актуальный остаток, цену с НДС, срок отгрузки и гарантию.</p>
+            </article>
+            <article>
+              <span>B2B</span>
+              <strong>КП, счета и реквизиты</strong>
+              <p>Для юрлиц доступна работа по безналичному расчету и история заявок в личном кабинете.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -278,6 +314,14 @@
         </div>
 
         <div class="category-tabs" id="categoryTabs" role="tablist" aria-label="Категории"></div>
+
+        <div class="quick-pick-card">
+          <div>
+            <strong>Не знаете артикул?</strong>
+            <span>Подберем по серверу, интерфейсу или скорости.</span>
+          </div>
+          <button class="primary-button compact" type="button" data-lead="quote">Запросить подбор</button>
+        </div>
 
         <div class="catalog-layout">
           <aside class="filters-panel" aria-label="Фильтры каталога">
@@ -369,16 +413,18 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Администрирование</p>
-            <h2 id="adminTitle">Импорт и управление каталогом</h2>
+            <h2 id="adminTitle">Админка и управление каталогом</h2>
             <p>
-              Прототип поддерживает обновление товаров из CSV прямо в браузере.
-              В production этот сценарий переносится в CMS или интеграцию.
+              Пользователи, проверки юрлиц, заявки, статусы и импорт каталога
+              собраны в кабинете менеджера.
             </p>
           </div>
           <button class="secondary-button compact" type="button" id="downloadCsvButton">
             Скачать пример CSV
           </button>
         </div>
+
+        <div class="admin-ops" id="adminOps" aria-live="polite"></div>
 
         <div class="admin-grid">
           <form class="admin-tool" id="csvImportForm">
@@ -436,16 +482,16 @@
       <section class="info-section" id="delivery" aria-labelledby="infoTitle">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Сервисные страницы v1</p>
+            <p class="eyebrow">Доставка</p>
             <h2 id="infoTitle">Доставка, оплата и гарантии</h2>
           </div>
         </div>
         <div class="info-grid">
           <article class="service-card">
             <span class="service-index">01</span>
-            <h3>Доставка СДЭК</h3>
+            <h3>Доставка СДЕК</h3>
             <p>
-              Отправляем заказы из Нижнего Тагила через СДЭК до ПВЗ или курьером
+              Отправляем заказы из Нижнего Тагила через СДЕК до ПВЗ или курьером
               после подтверждения наличия менеджером.
             </p>
           </article>
@@ -453,7 +499,7 @@
             <span class="service-index">02</span>
             <h3>Оплата</h3>
             <p>
-              Оплата при получении в ПВЗ СДЭК или по безналичному расчету для
+              Оплата при получении в ПВЗ СДЕК или по безналичному расчету для
               юридических лиц после согласования счета.
             </p>
           </article>
@@ -470,17 +516,25 @@
             <h3>Реквизиты</h3>
             <p>
               ИНН 6623147210<br />
-              ОГРН 662301001<br />
+              ОГРН 1246600061762<br />
+              КПП 662301001<br />
               Город: Нижний Тагил
             </p>
           </article>
+        </div>
+        <div class="policy-note" id="privacy">
+          <span>Политика конфиденциальности</span>
+          <p>
+            Персональные данные используются только для обработки заявки, подготовки КП,
+            счета, доставки и связи с клиентом. Версия политики: 2026-08-31.
+          </p>
         </div>
       </section>
 
       <section class="contacts-section" id="contacts" aria-labelledby="contactsTitle">
         <div>
           <p class="eyebrow">Контакты</p>
-          <h2 id="contactsTitle">Связаться с отделом продаж</h2>
+          <h2 id="contactsTitle">Информация для покупателей</h2>
           <div class="contact-details" aria-label="Контактная информация и условия работы">
             <div class="contact-row">
               <span>Город</span>
@@ -492,7 +546,7 @@
             </div>
             <div class="contact-row">
               <span>Доставка</span>
-              <strong>СДЭК до ПВЗ или курьером</strong>
+              <strong>СДЕК до ПВЗ или курьером</strong>
             </div>
             <div class="contact-row">
               <span>Оплата</span>
@@ -502,35 +556,18 @@
               <span>Гарантия</span>
               <strong>1 год</strong>
             </div>
+            <div class="contact-row document-row">
+              <span>Документы</span>
+              <button class="secondary-button compact consent-open-button" type="button" id="personalDataConsentButton">
+                Согласие на обработку персональных данных
+              </button>
+            </div>
             <div class="requisites-card">
               <span>Реквизиты</span>
-              <p>ИНН 6623147210 · ОГРН 662301001</p>
+              <p>ИНН 6623147210 · ОГРН 1246600061762 · КПП 662301001</p>
             </div>
           </div>
         </div>
-        <form class="contact-form" id="contactForm">
-          <div class="form-next-step">
-            <strong>Ответим в течение 2 рабочих часов</strong>
-            <span>Передадим сообщение менеджеру, уточнения отправим по указанному контакту.</span>
-          </div>
-          <label>
-            <span>Имя</span>
-            <input class="input" name="name" required />
-          </label>
-          <label>
-            <span>Телефон или email</span>
-            <input class="input" name="contact" required />
-          </label>
-          <label>
-            <span>Сообщение</span>
-            <textarea class="input textarea" name="message" rows="4" required></textarea>
-          </label>
-          <label class="consent-check">
-            <input type="checkbox" name="consent" required />
-            <span>Даю согласие на обработку персональных данных</span>
-          </label>
-          <button class="primary-button" type="submit">Отправить сообщение</button>
-        </form>
       </section>
     </main>
 
@@ -540,7 +577,7 @@
           <p class="eyebrow">Корзина-заявка</p>
           <h2>Оформление заказа</h2>
         </div>
-        <button class="iconless-button" value="cancel" aria-label="Закрыть корзину">Закрыть</button>
+        <button class="iconless-button" type="submit" value="cancel" data-dialog-close aria-label="Закрыть корзину">Закрыть</button>
       </form>
       <div class="dialog-body" id="cartBody"></div>
     </dialog>
@@ -551,10 +588,48 @@
           <p class="breadcrumb" id="productBreadcrumb">Каталог / Товар</p>
           <h2 id="productDialogTitle">Карточка товара</h2>
         </div>
-        <button class="iconless-button" value="cancel" aria-label="Закрыть карточку">Закрыть</button>
+        <button class="iconless-button" type="submit" value="cancel" data-dialog-close aria-label="Закрыть карточку">Закрыть</button>
       </form>
       <div class="dialog-body" id="productDialogBody"></div>
     </dialog>
+
+    <dialog class="modal product-image-dialog" id="productImageDialog" aria-labelledby="productImageCaption">
+      <button class="image-preview-close" type="button" data-dialog-close aria-label="Закрыть фото" title="Закрыть фото" autofocus><span aria-hidden="true">&times;</span></button>
+      <div class="image-preview-stage">
+        <img id="productImagePreview" alt="" />
+      </div>
+      <p class="image-preview-caption" id="productImageCaption"></p>
+    </dialog>
+
+    <dialog class="modal consent-dialog" id="consentDialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="eyebrow">Документы</p>
+          <h2>Согласие на обработку персональных данных</h2>
+        </div>
+        <button class="iconless-button" type="submit" value="cancel" data-dialog-close aria-label="Закрыть согласие">Закрыть</button>
+      </form>
+      <div class="dialog-body">
+        <pre class="policy-text" id="consentDialogText">Загрузка текста...</pre>
+      </div>
+    </dialog>
+
+    <template id="personalDataConsentTemplate">Согласие на обработку персональных данных
+Я даю согласие Обществу с ограниченной ответственностью «БЕЛЫЙ ВЕТЕР» (ООО «БЕЛЫЙ ВЕТЕР», ОГРН 1246600061762, ИНН 6623147210, КПП 662301001, юридический адрес: Свердловская область, г. Нижний Тагил, ул. Максима Горького, д. 1) на обработку моих персональных данных и данных, указанных мной в заявке, запросе коммерческого предложения, заказе из корзины, контактной форме или комментарии.
+
+1. Согласие предоставляется свободно, своей волей и в своем интересе в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».
+
+2. Цели обработки персональных данных: обработка заявок и запросов коммерческих предложений, оформление и исполнение заказов, связь с клиентом, подготовка и направление коммерческих предложений, информирование о статусе заявки или заказа, организация доставки, бухгалтерский и налоговый учет, а также анализ работы сайта и улучшение качества обслуживания.
+
+3. Перечень обрабатываемых данных: имя, номер телефона, адрес электронной почты, наименование организации, ИНН, КПП, банковские и иные реквизиты, адрес доставки, комментарий, состав заказа, сведения о выбранных товарах, а также технические данные, которые могут автоматически передаваться при использовании сайта: IP-адрес, сведения об устройстве, браузере, операционной системе, файлах cookie, дате, времени и действиях на сайте.
+
+4. Оператор вправе совершать с персональными данными следующие действия: сбор, запись, систематизацию, накопление, хранение, уточнение, обновление, изменение, извлечение, использование, передачу, предоставление, доступ, обезличивание, блокирование, удаление и уничтожение.
+
+5. Оператор может поручать обработку данных или передавать данные третьим лицам в объеме, необходимом для указанных целей, включая службы доставки, платежные организации, почтовые и мессенджер-сервисы, сервисы уведомлений, хостинга, аналитики, технической поддержки, а также государственные органы в случаях, предусмотренных законодательством Российской Федерации.
+
+6. Согласие действует с момента предоставления данных до его отзыва или до достижения целей обработки. Если данные связаны с заказом, договором, бухгалтерским или налоговым учетом, они могут храниться в течение сроков, установленных законодательством Российской Федерации.
+
+7. Согласие может быть отозвано путем направления письменного заявления по юридическому адресу Оператора: Свердловская область, г. Нижний Тагил, ул. Максима Горького, д. 1. После получения отзыва Оператор прекращает обработку персональных данных и уничтожает их, если сохранение данных больше не требуется для целей обработки и не предусмотрено законодательством Российской Федерации.</template>
 
     <dialog class="modal" id="leadDialog">
       <form method="dialog" class="dialog-head">
@@ -562,7 +637,7 @@
           <p class="eyebrow" id="leadEyebrow">Заявка</p>
           <h2 id="leadTitle">Запросить КП</h2>
         </div>
-        <button class="iconless-button" value="cancel" aria-label="Закрыть форму">Закрыть</button>
+        <button class="iconless-button" type="submit" value="cancel" data-dialog-close aria-label="Закрыть форму">Закрыть</button>
       </form>
       <form class="dialog-body lead-form" id="leadForm">
         <div id="leadProductSummary" class="lead-product"></div>
@@ -570,8 +645,14 @@
           <strong>КП отправим на email</strong>
           <span>Ответим в течение 2 рабочих часов; если оставлен телефон, менеджер уточнит email для КП.</span>
         </div>
+        <fieldset class="account-fieldset">
+          <legend>Тип клиента</legend>
+          <label class="radio-row"><input type="radio" name="clientType" value="person" checked /> <span>Физлицо</span></label>
+          <label class="radio-row"><input type="radio" name="clientType" value="legal" /> <span>Юрлицо</span></label>
+        </fieldset>
+        <p class="client-type-hint" data-client-hint></p>
         <label>
-          <span>Имя</span>
+          <span>Имя / контактное лицо</span>
           <input class="input" name="name" required />
         </label>
         <label>
@@ -582,17 +663,33 @@
           <span>Email для КП</span>
           <input class="input" name="email" type="email" autocomplete="email" placeholder="Достаточно одного контакта" />
         </label>
-        <label>
-          <span>Компания</span>
-          <input class="input" name="company" required />
-        </label>
-        <label>
-          <span>ИНН</span>
-          <input class="input" name="inn" inputmode="numeric" />
-        </label>
+        <div class="client-type-fields" data-client-fields="legal" hidden>
+          <div class="form-grid two-columns">
+            <label>
+              <span>Компания</span>
+              <input class="input" name="company" data-required-for="legal" disabled />
+            </label>
+            <label>
+              <span>ИНН</span>
+              <input class="input" name="inn" inputmode="numeric" data-required-for="legal" disabled />
+            </label>
+          </div>
+          <label>
+            <span>КПП</span>
+            <input class="input" name="kpp" inputmode="numeric" placeholder="Для ООО/АО; для ИП можно оставить пустым" disabled />
+          </label>
+          <label>
+            <span>Реквизиты</span>
+            <textarea class="input textarea" name="requisites" rows="3" placeholder="Расчетный счет, банк, БИК" disabled></textarea>
+          </label>
+        </div>
         <label>
           <span>Комментарий</span>
           <textarea class="input textarea" name="comment" rows="4"></textarea>
+        </label>
+        <label class="consent-check">
+          <input type="checkbox" name="consent" required />
+          <span>Даю согласие на обработку персональных данных и принимаю <a href="#privacy">Политику конфиденциальности</a>.</span>
         </label>
         <div class="form-actions">
           <button class="primary-button" type="submit">Отправить заявку</button>
@@ -603,15 +700,15 @@
     <dialog class="modal side-dialog" id="accountDialog">
       <form method="dialog" class="dialog-head">
         <div>
-          <p class="eyebrow">Мини-кабинет</p>
-          <h2>Профиль и история</h2>
+          <p class="eyebrow">Личный кабинет</p>
+          <h2>Центр закупки</h2>
         </div>
-        <button class="iconless-button" value="cancel" aria-label="Закрыть кабинет">Закрыть</button>
+        <button class="iconless-button" type="submit" value="cancel" data-dialog-close aria-label="Закрыть кабинет">Закрыть</button>
       </form>
       <div class="dialog-body" id="accountBody"></div>
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=20260829-network-live" defer></script>
+  <script src="app.js?v=20260903-admin-fixes" defer></script>
   </body>
 </html>
